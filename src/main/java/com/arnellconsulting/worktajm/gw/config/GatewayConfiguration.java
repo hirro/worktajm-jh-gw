@@ -1,13 +1,13 @@
 package com.arnellconsulting.worktajm.gw.config;
 
+import io.github.jhipster.config.JHipsterProperties;
+
 import com.arnellconsulting.worktajm.gw.gateway.ratelimiting.RateLimitingFilter;
-import com.arnellconsulting.worktajm.gw.gateway.ratelimiting.RateLimitingRepository;
 import com.arnellconsulting.worktajm.gw.gateway.accesscontrol.AccessControlFilter;
 import com.arnellconsulting.worktajm.gw.gateway.responserewriting.SwaggerBasePathRewritingFilter;
 
-import javax.inject.Inject;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,8 +27,8 @@ public class GatewayConfiguration {
     public static class AccessControlFilterConfiguration {
 
         @Bean
-        public AccessControlFilter accessControlFilter(){
-            return new AccessControlFilter();
+        public AccessControlFilter accessControlFilter(RouteLocator routeLocator, JHipsterProperties jHipsterProperties){
+            return new AccessControlFilter(routeLocator, jHipsterProperties);
         }
     }
 
@@ -49,17 +49,15 @@ public class GatewayConfiguration {
     @ConditionalOnProperty("jhipster.gateway.rate-limiting.enabled")
     public static class RateLimitingConfiguration {
 
-        @Inject
-        private JHipsterProperties jHipsterProperties;
+        private final JHipsterProperties jHipsterProperties;
 
-        @Bean
-        public RateLimitingRepository rateLimitingRepository() {
-            return new RateLimitingRepository();
+        public RateLimitingConfiguration(JHipsterProperties jHipsterProperties) {
+            this.jHipsterProperties = jHipsterProperties;
         }
 
         @Bean
         public RateLimitingFilter rateLimitingFilter() {
-            return new RateLimitingFilter(rateLimitingRepository(), jHipsterProperties);
+            return new RateLimitingFilter(jHipsterProperties);
         }
     }
 }

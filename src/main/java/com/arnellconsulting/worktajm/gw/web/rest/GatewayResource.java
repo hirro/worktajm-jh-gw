@@ -1,10 +1,9 @@
 package com.arnellconsulting.worktajm.gw.web.rest;
 
-import com.arnellconsulting.worktajm.gw.web.rest.dto.RouteDTO;
+import com.arnellconsulting.worktajm.gw.web.rest.vm.RouteVM;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,31 +24,32 @@ public class GatewayResource {
 
     private final Logger log = LoggerFactory.getLogger(GatewayResource.class);
 
-    @Inject
-    private RouteLocator routeLocator;
+    private final RouteLocator routeLocator;
 
-    @Inject
-    private DiscoveryClient discoveryClient;
+    private final DiscoveryClient discoveryClient;
+
+    public GatewayResource(RouteLocator routeLocator, DiscoveryClient discoveryClient) {
+        this.routeLocator = routeLocator;
+        this.discoveryClient = discoveryClient;
+    }
 
     /**
      * GET  /routes : get the active routes.
      *
      * @return the ResponseEntity with status 200 (OK) and with body the list of routes
      */
-    @RequestMapping(value = "/routes",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/routes")
     @Timed
-    public ResponseEntity<List<RouteDTO>> activeRoutes() {
+    public ResponseEntity<List<RouteVM>> activeRoutes() {
         List<Route> routes = routeLocator.getRoutes();
-        List<RouteDTO> routeDTOs = new ArrayList<>();
+        List<RouteVM> routeVMs = new ArrayList<>();
         routes.forEach(route -> {
-            RouteDTO routeDTO = new RouteDTO();
-            routeDTO.setPath(route.getFullPath());
-            routeDTO.setServiceId(route.getId());
-            routeDTO.setServiceInstances(discoveryClient.getInstances(route.getId()));
-            routeDTOs.add(routeDTO);
+            RouteVM routeVM = new RouteVM();
+            routeVM.setPath(route.getFullPath());
+            routeVM.setServiceId(route.getId());
+            routeVM.setServiceInstances(discoveryClient.getInstances(route.getId()));
+            routeVMs.add(routeVM);
         });
-        return new ResponseEntity<>(routeDTOs, HttpStatus.OK);
+        return new ResponseEntity<>(routeVMs, HttpStatus.OK);
     }
 }
