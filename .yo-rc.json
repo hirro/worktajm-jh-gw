@@ -1,17 +1,17 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.arnellconsulting.worktajm.gw",
+      "packageName": "com.worktajm.gw",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "4.5.0",
+    "jhipsterVersion": "4.5.1",
     "baseName": "worktajmGw",
-    "packageName": "com.arnellconsulting.worktajm.gw",
-    "packageFolder": "com/arnellconsulting/worktajm/gw",
+    "packageName": "com.worktajm.gw",
+    "packageFolder": "com/worktajm/gw",
     "serverPort": "8080",
     "authenticationType": "jwt",
     "hibernateCache": "hazelcast",
-    "clusteredHttpSession": false,
+    "clusteredHttpSession": "hazelcast",
     "websocket": "spring-websocket",
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
@@ -21,7 +21,7 @@
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "f2d515c0adc01b4f2abc6a946d6fd6583a379f00",
+    "jwtSecretKey": "7298a3b46bf41564c448229c6b250b7b0b06b1f9",
     "clientFramework": "angular2",
     "useSass": false,
     "clientPackageManager": "yarn",

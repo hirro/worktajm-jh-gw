@@ -1,0 +1,85 @@
+<div>
+    <h2>
+        <span jhiTranslate="worktajmGwApp.timeEntry.home.title">Time Entries</span>
+        <button class="btn btn-primary float-right create-time-entry" [routerLink]="['/', { outlets: { popup: ['time-entry-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="worktajmGwApp.timeEntry.home.createLabel">
+            Create new Time Entry
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'worktajmGwApp.timeEntry.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="timeEntries">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="start"><span jhiTranslate="worktajmGwApp.timeEntry.start">Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="end"><span jhiTranslate="worktajmGwApp.timeEntry.end">End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="comment"><span jhiTranslate="worktajmGwApp.timeEntry.comment">Comment</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="workerEmail"><span jhiTranslate="worktajmGwApp.timeEntry.worker">Worker</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="projectName"><span jhiTranslate="worktajmGwApp.timeEntry.project">Project</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let timeEntry of timeEntries ;trackBy: trackId">
+                <td><a [routerLink]="['../time-entry', timeEntry.id ]">{{timeEntry.id}}</a></td>
+                <td>{{timeEntry.start | date:'medium'}}</td>
+                <td>{{timeEntry.end | date:'medium'}}</td>
+                <td>{{timeEntry.comment}}</td>
+                <td>
+                    <div *ngIf="timeEntry.workerId">
+                        <a [routerLink]="['../worker', timeEntry.workerId  ]" >{{timeEntry.workerEmail}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="timeEntry.projectId">
+                        <a [routerLink]="['../project', timeEntry.projectId  ]" >{{timeEntry.projectName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../time-entry', timeEntry.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'time-entry/'+ timeEntry.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'time-entry/'+ timeEntry.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

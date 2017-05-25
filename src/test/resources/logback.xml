@@ -3,7 +3,7 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <logger name="com.arnellconsulting.worktajm.gw" level="INFO"/>
+    <logger name="com.worktajm.gw" level="INFO"/>
 
     <logger name="io.github.jhipster" level="WARN"/>
 

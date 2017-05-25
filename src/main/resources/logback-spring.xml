@@ -22,7 +22,7 @@
     </appender>
 -->
 
-    <logger name="com.arnellconsulting.worktajm.gw" level="#logback.loglevel#"/>
+    <logger name="com.worktajm.gw" level="#logback.loglevel#"/>
 
     <logger name="io.github.jhipster" level="DEBUG"/>
 
