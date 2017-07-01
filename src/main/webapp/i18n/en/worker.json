@@ -1,0 +1,25 @@
+{
+    "worktajmGwApp": {
+        "worker" : {
+            "home": {
+                "title": "Workers",
+                "createLabel": "Create a new Worker",
+                "createOrEditLabel": "Create or edit a Worker",
+                "search": "Search for Worker"
+            },
+            "created": "A new Worker is created with identifier {{ param }}",
+            "updated": "A Worker is updated with identifier {{ param }}",
+            "deleted": "A Worker is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Worker {{ id }}?"
+            },
+            "detail": {
+                "title": "Worker"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "timeEntry": "Time Entry"
+        }
+    }
+}

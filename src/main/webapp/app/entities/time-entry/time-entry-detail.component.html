@@ -1,0 +1,45 @@
+
+<div *ngIf="timeEntry">
+    <h2><span jhiTranslate="worktajmGwApp.timeEntry.detail.title">Time Entry</span> {{timeEntry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="worktajmGwApp.timeEntry.start">Start</span></dt>
+        <dd>
+            <span>{{timeEntry.start | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmGwApp.timeEntry.end">End</span></dt>
+        <dd>
+            <span>{{timeEntry.end | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmGwApp.timeEntry.comment">Comment</span></dt>
+        <dd>
+            <span>{{timeEntry.comment}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmGwApp.timeEntry.worker">Worker</span></dt>
+        <dd>
+            <div *ngIf="timeEntry.workerId">
+                <a [routerLink]="['/worker', timeEntry.workerId]">{{timeEntry.workerEmail}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="worktajmGwApp.timeEntry.project">Project</span></dt>
+        <dd>
+            <div *ngIf="timeEntry.projectId">
+                <a [routerLink]="['/project', timeEntry.projectId]">{{timeEntry.projectName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'time-entry/'+ timeEntry.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
