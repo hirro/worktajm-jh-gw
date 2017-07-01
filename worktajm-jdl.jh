@@ -1,31 +1,66 @@
-// JDL for worktajm
 
-
-entity Worker {
-	firstName String,
-	lastName String,
-	email String
+/**
+ * Postal address.
+ */
+entity Address {
+	line1 String required,
+	line2 String
+	line3 String,
+	city String required,
+	zipOrPostcode String required,
+	stateProvinceCounty String,
+	countryId String required,
+	otherAddressDetails String
 }
 
+/**
+ * The project associated with a time entry.
+ *
+ * Each project belongs to either an user or an organization.
+ */
 entity Project {
-	name String,
+	name String required,
     description String
 }
 
+entity Customer {
+	name String required
+}
+
+/**
+ * The time entry that logs work on a particular project.
+ *
+ * Each time entry belongs to one user.
+ */
 entity TimeEntry {
-	start ZonedDateTime,
+	start ZonedDateTime required,
 	end ZonedDateTime,
     comment String
 }
 
-relationship OneToMany { Worker{timeEntry} to TimeEntry{worker(email)} }
-relationship OneToMany { Project{timeEntry} to TimeEntry{project(name)} }
+/**
+ * In many cases an organization is only one user.
+ */
+entity Domain {
+	name String required,
+    organizationNumber String,
+    adress String,
+}
 
-paginate TimeEntry, Worker with infinite-scroll
-paginate Project with pagination
+
+relationship OneToMany { Project{timeEntry} to TimeEntry{project(name)} }
+relationship OneToMany { Project{belongsTo} to Customer }
+relationship OneToOne { Domain{postalAddress} to Address}
+relationship ManyToOne { Domain{customers} to Customer{domain} }
+relationship ManyToOne { Customer{billingAddress} to Address{organization} }
+
+// Special user relationships
+relationship ManyToOne { TimeEntry{createdBy} to User }
+relationship ManyToMany { Domain{members} to User }
+
+paginate * with pagination
 
 dto * with mapstruct
 
-service Worker with serviceClass
 
 
