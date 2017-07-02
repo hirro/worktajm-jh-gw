@@ -1,0 +1,122 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDomainLabel" jhiTranslate="worktajmApp.domain.home.createOrEditLabel">Create or edit a Domain</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!domain.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="domain.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="domain.name" required />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.domainName" for="field_domainName">Domain Name</label>
+            <input type="text" class="form-control" name="domainName" id="field_domainName"
+                [(ngModel)]="domain.domainName" required />
+            <div [hidden]="!(editForm.controls.domainName?.dirty && editForm.controls.domainName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.domainName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.organizationNumber" for="field_organizationNumber">Organization Number</label>
+            <input type="text" class="form-control" name="organizationNumber" id="field_organizationNumber"
+                [(ngModel)]="domain.organizationNumber"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.addressLine1" for="field_addressLine1">Address Line 1</label>
+            <input type="text" class="form-control" name="addressLine1" id="field_addressLine1"
+                [(ngModel)]="domain.addressLine1" required />
+            <div [hidden]="!(editForm.controls.addressLine1?.dirty && editForm.controls.addressLine1?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.addressLine1?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.addressLine2" for="field_addressLine2">Address Line 2</label>
+            <input type="text" class="form-control" name="addressLine2" id="field_addressLine2"
+                [(ngModel)]="domain.addressLine2"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.addressLine3" for="field_addressLine3">Address Line 3</label>
+            <input type="text" class="form-control" name="addressLine3" id="field_addressLine3"
+                [(ngModel)]="domain.addressLine3"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.city" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                [(ngModel)]="domain.city" required />
+            <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.zipOrPostcode" for="field_zipOrPostcode">Zip Or Postcode</label>
+            <input type="text" class="form-control" name="zipOrPostcode" id="field_zipOrPostcode"
+                [(ngModel)]="domain.zipOrPostcode" required />
+            <div [hidden]="!(editForm.controls.zipOrPostcode?.dirty && editForm.controls.zipOrPostcode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.zipOrPostcode?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.stateProvinceCounty" for="field_stateProvinceCounty">State Province County</label>
+            <input type="text" class="form-control" name="stateProvinceCounty" id="field_stateProvinceCounty"
+                [(ngModel)]="domain.stateProvinceCounty"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.country" for="field_country">Country</label>
+            <input type="text" class="form-control" name="country" id="field_country"
+                [(ngModel)]="domain.country" required />
+            <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.domain.addressDetails" for="field_addressDetails">Address Details</label>
+            <input type="text" class="form-control" name="addressDetails" id="field_addressDetails"
+                [(ngModel)]="domain.addressDetails"  />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="worktajmApp.domain.members" for="field_members">Members</label>
+            <select class="form-control" id="field_members" multiple name="members" [(ngModel)]="domain.members">
+                <option [ngValue]="getSelected(domain.members, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

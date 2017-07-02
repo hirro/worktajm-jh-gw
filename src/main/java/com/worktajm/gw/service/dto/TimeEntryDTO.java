@@ -2,6 +2,7 @@ package com.worktajm.gw.service.dto;
 
 
 import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,19 +15,20 @@ public class TimeEntryDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private ZonedDateTime start;
 
     private ZonedDateTime end;
 
     private String comment;
 
-    private Long workerId;
-
-    private String workerEmail;
-
     private Long projectId;
 
     private String projectName;
+
+    private Long createdById;
+
+    private String createdByEmail;
 
     public Long getId() {
         return id;
@@ -60,22 +62,6 @@ public class TimeEntryDTO implements Serializable {
         this.comment = comment;
     }
 
-    public Long getWorkerId() {
-        return workerId;
-    }
-
-    public void setWorkerId(Long workerId) {
-        this.workerId = workerId;
-    }
-
-    public String getWorkerEmail() {
-        return workerEmail;
-    }
-
-    public void setWorkerEmail(String workerEmail) {
-        this.workerEmail = workerEmail;
-    }
-
     public Long getProjectId() {
         return projectId;
     }
@@ -90,6 +76,22 @@ public class TimeEntryDTO implements Serializable {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public Long getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(Long userId) {
+        this.createdById = userId;
+    }
+
+    public String getCreatedByEmail() {
+        return createdByEmail;
+    }
+
+    public void setCreatedByEmail(String userEmail) {
+        this.createdByEmail = userEmail;
     }
 
     @Override

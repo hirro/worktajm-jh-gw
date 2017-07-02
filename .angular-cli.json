@@ -1,11 +1,11 @@
 {
     "project": {
         "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-        "name": "worktajm-gw"
+        "name": "worktajm"
     },
     "apps": [{
         "root": "src/main/webapp/",
-        "outDir": "target/www/app",
+        "outDir": "build/www/app",
         "assets": [
             "content",
             "i18n",

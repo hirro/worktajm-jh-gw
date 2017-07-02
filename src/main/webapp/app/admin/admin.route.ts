@@ -7,7 +7,6 @@ import {
     healthRoute,
     logsRoute,
     metricsRoute,
-    gatewayRoute,
     trackerRoute,
     userMgmtRoute,
     userDialogRoute
@@ -21,7 +20,6 @@ const ADMIN_ROUTES = [
     docsRoute,
     healthRoute,
     logsRoute,
-    gatewayRoute,
     trackerRoute,
     ...userMgmtRoute,
     metricsRoute

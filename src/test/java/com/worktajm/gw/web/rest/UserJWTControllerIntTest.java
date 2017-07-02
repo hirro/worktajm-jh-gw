@@ -1,6 +1,6 @@
 package com.worktajm.gw.web.rest;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 import com.worktajm.gw.domain.User;
 import com.worktajm.gw.repository.UserRepository;
 import com.worktajm.gw.security.jwt.TokenProvider;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see UserJWTController
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 public class UserJWTControllerIntTest {
 
     @Autowired

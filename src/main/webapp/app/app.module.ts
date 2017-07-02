@@ -4,14 +4,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
-import { WorktajmGwSharedModule, UserRouteAccessService } from './shared';
-import { WorktajmGwHomeModule } from './home/home.module';
-import { WorktajmGwAdminModule } from './admin/admin.module';
-import { WorktajmGwAccountModule } from './account/account.module';
-import { WorktajmGwEntityModule } from './entities/entity.module';
+import { WorktajmSharedModule, UserRouteAccessService } from './shared';
+import { WorktajmHomeModule } from './home/home.module';
+import { WorktajmAdminModule } from './admin/admin.module';
+import { WorktajmAccountModule } from './account/account.module';
+import { WorktajmEntityModule } from './entities/entity.module';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
+
+// jhipster-needle-angular-add-module-import JHipster will add new module here
 
 import {
     JhiMainComponent,
@@ -29,11 +31,12 @@ import {
         BrowserModule,
         LayoutRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
-        WorktajmGwSharedModule,
-        WorktajmGwHomeModule,
-        WorktajmGwAdminModule,
-        WorktajmGwAccountModule,
-        WorktajmGwEntityModule
+        WorktajmSharedModule,
+        WorktajmHomeModule,
+        WorktajmAdminModule,
+        WorktajmAccountModule,
+        WorktajmEntityModule,
+        // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
         JhiMainComponent,
@@ -51,4 +54,4 @@ import {
     ],
     bootstrap: [ JhiMainComponent ]
 })
-export class WorktajmGwAppModule {}
+export class WorktajmAppModule {}

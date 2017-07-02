@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Project } from './project.model';
 import { ProjectPopupService } from './project-popup.service';
@@ -19,7 +19,8 @@ export class ProjectDeleteDialogComponent {
     constructor(
         private projectService: ProjectService,
         public activeModal: NgbActiveModal,
-        private eventManager: EventManager
+        private alertService: JhiAlertService,
+        private eventManager: JhiEventManager
     ) {
     }
 
@@ -35,6 +36,7 @@ export class ProjectDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
+        this.alertService.success('worktajmApp.project.deleted', { param : id }, null);
     }
 }
 

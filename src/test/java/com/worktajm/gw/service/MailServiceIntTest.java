@@ -1,6 +1,6 @@
 package com.worktajm.gw.service;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 import com.worktajm.gw.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
@@ -29,7 +29,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 public class MailServiceIntTest {
 
     @Autowired

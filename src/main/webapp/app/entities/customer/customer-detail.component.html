@@ -1,0 +1,63 @@
+
+<div *ngIf="customer">
+    <h2><span jhiTranslate="worktajmApp.customer.detail.title">Customer</span> {{customer.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="worktajmApp.customer.name">Name</span></dt>
+        <dd>
+            <span>{{customer.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.addressLine1">Address Line 1</span></dt>
+        <dd>
+            <span>{{customer.addressLine1}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.addressLine2">Address Line 2</span></dt>
+        <dd>
+            <span>{{customer.addressLine2}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.addressLine3">Address Line 3</span></dt>
+        <dd>
+            <span>{{customer.addressLine3}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.city">City</span></dt>
+        <dd>
+            <span>{{customer.city}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.zipOrPostcode">Zip Or Postcode</span></dt>
+        <dd>
+            <span>{{customer.zipOrPostcode}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.stateProvinceCounty">State Province County</span></dt>
+        <dd>
+            <span>{{customer.stateProvinceCounty}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.country">Country</span></dt>
+        <dd>
+            <span>{{customer.country}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.addressDetails">Address Details</span></dt>
+        <dd>
+            <span>{{customer.addressDetails}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.customer.domain">Domain</span></dt>
+        <dd>
+            <div *ngIf="customer.domainId">
+                <a [routerLink]="['/domain', customer.domainId]">{{customer.domainName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'customer/'+ customer.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

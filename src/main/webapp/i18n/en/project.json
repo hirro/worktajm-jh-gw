@@ -1,5 +1,5 @@
 {
-    "worktajmGwApp": {
+    "worktajmApp": {
         "project" : {
             "home": {
                 "title": "Projects",
@@ -18,7 +18,7 @@
             },
             "name": "Name",
             "description": "Description",
-            "timeEntry": "Time Entry"
+            "belongsTo": "Belongs To"
         }
     }
 }

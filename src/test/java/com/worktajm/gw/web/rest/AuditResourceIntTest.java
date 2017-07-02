@@ -1,6 +1,6 @@
 package com.worktajm.gw.web.rest;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 import com.worktajm.gw.config.audit.AuditEventConverter;
 import com.worktajm.gw.domain.PersistentAuditEvent;
 import com.worktajm.gw.repository.PersistenceAuditEventRepository;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see AuditResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 @Transactional
 public class AuditResourceIntTest {
 

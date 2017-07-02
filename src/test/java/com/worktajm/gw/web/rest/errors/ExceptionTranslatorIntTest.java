@@ -1,6 +1,6 @@
 package com.worktajm.gw.web.rest.errors;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ExceptionTranslator
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 public class ExceptionTranslatorIntTest {
 
     @Autowired

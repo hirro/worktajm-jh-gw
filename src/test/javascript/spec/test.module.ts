@@ -21,4 +21,4 @@ import { MockLanguageService } from './helpers/mock-language.service';
         }
     ]
 })
-export class WorktajmGwTestModule {}
+export class WorktajmTestModule {}

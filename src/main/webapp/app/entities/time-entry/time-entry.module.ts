@@ -1,7 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { WorktajmGwSharedModule } from '../../shared';
+import { WorktajmSharedModule } from '../../shared';
+import { WorktajmAdminModule } from '../../admin/admin.module';
 import {
     TimeEntryService,
     TimeEntryPopupService,
@@ -13,6 +14,7 @@ import {
     TimeEntryDeleteDialogComponent,
     timeEntryRoute,
     timeEntryPopupRoute,
+    TimeEntryResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -22,7 +24,8 @@ const ENTITY_STATES = [
 
 @NgModule({
     imports: [
-        WorktajmGwSharedModule,
+        WorktajmSharedModule,
+        WorktajmAdminModule,
         RouterModule.forRoot(ENTITY_STATES, { useHash: true })
     ],
     declarations: [
@@ -43,7 +46,8 @@ const ENTITY_STATES = [
     providers: [
         TimeEntryService,
         TimeEntryPopupService,
+        TimeEntryResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class WorktajmGwTimeEntryModule {}
+export class WorktajmTimeEntryModule {}

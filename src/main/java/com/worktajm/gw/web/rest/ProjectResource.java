@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -40,7 +41,7 @@ public class ProjectResource {
     private final Logger log = LoggerFactory.getLogger(ProjectResource.class);
 
     private static final String ENTITY_NAME = "project";
-        
+
     private final ProjectRepository projectRepository;
 
     private final ProjectMapper projectMapper;
@@ -62,7 +63,7 @@ public class ProjectResource {
      */
     @PostMapping("/projects")
     @Timed
-    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO) throws URISyntaxException {
+    public ResponseEntity<ProjectDTO> createProject(@Valid @RequestBody ProjectDTO projectDTO) throws URISyntaxException {
         log.debug("REST request to save Project : {}", projectDTO);
         if (projectDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new project cannot already have an ID")).body(null);
@@ -82,12 +83,12 @@ public class ProjectResource {
      * @param projectDTO the projectDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated projectDTO,
      * or with status 400 (Bad Request) if the projectDTO is not valid,
-     * or with status 500 (Internal Server Error) if the projectDTO couldnt be updated
+     * or with status 500 (Internal Server Error) if the projectDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/projects")
     @Timed
-    public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO) throws URISyntaxException {
+    public ResponseEntity<ProjectDTO> updateProject(@Valid @RequestBody ProjectDTO projectDTO) throws URISyntaxException {
         log.debug("REST request to update Project : {}", projectDTO);
         if (projectDTO.getId() == null) {
             return createProject(projectDTO);
@@ -150,7 +151,7 @@ public class ProjectResource {
      * SEARCH  /_search/projects?query=:query : search for the project corresponding
      * to the query.
      *
-     * @param query the query of the project search 
+     * @param query the query of the project search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -162,6 +163,5 @@ public class ProjectResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/projects");
         return new ResponseEntity<>(projectMapper.toDto(page.getContent()), headers, HttpStatus.OK);
     }
-
 
 }

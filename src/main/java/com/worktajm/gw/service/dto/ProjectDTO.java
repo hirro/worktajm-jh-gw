@@ -1,6 +1,7 @@
 package com.worktajm.gw.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,9 +14,14 @@ public class ProjectDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private String name;
 
     private String description;
+
+    private Long belongsToId;
+
+    private String belongsToName;
 
     public Long getId() {
         return id;
@@ -39,6 +45,22 @@ public class ProjectDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getBelongsToId() {
+        return belongsToId;
+    }
+
+    public void setBelongsToId(Long customerId) {
+        this.belongsToId = customerId;
+    }
+
+    public String getBelongsToName() {
+        return belongsToName;
+    }
+
+    public void setBelongsToName(String customerName) {
+        this.belongsToName = customerName;
     }
 
     @Override

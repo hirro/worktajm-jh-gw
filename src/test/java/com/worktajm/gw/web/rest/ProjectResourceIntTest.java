@@ -1,6 +1,6 @@
 package com.worktajm.gw.web.rest;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 
 import com.worktajm.gw.domain.Project;
 import com.worktajm.gw.repository.ProjectRepository;
@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ProjectResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 public class ProjectResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -142,6 +142,25 @@ public class ProjectResourceIntTest {
         // Validate the Alice in the database
         List<Project> projectList = projectRepository.findAll();
         assertThat(projectList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = projectRepository.findAll().size();
+        // set the field null
+        project.setName(null);
+
+        // Create the Project, which fails.
+        ProjectDTO projectDTO = projectMapper.toDto(project);
+
+        restProjectMockMvc.perform(post("/api/projects")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(projectDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Project> projectList = projectRepository.findAll();
+        assertThat(projectList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

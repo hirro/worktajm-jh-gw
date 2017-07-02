@@ -4,11 +4,13 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Project } from './project.model';
 import { ProjectPopupService } from './project-popup.service';
 import { ProjectService } from './project.service';
+import { Customer, CustomerService } from '../customer';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-project-dialog',
@@ -20,18 +22,24 @@ export class ProjectDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
+    customers: Customer[];
+
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: AlertService,
+        private alertService: JhiAlertService,
         private projectService: ProjectService,
-        private eventManager: EventManager
+        private customerService: CustomerService,
+        private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.customerService.query()
+            .subscribe((res: ResponseWrapper) => { this.customers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -40,19 +48,24 @@ export class ProjectDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.project.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.projectService.update(this.project));
+                this.projectService.update(this.project), false);
         } else {
             this.subscribeToSaveResponse(
-                this.projectService.create(this.project));
+                this.projectService.create(this.project), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Project>) {
+    private subscribeToSaveResponse(result: Observable<Project>, isCreated: boolean) {
         result.subscribe((res: Project) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Project) {
+    private onSaveSuccess(result: Project, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'worktajmApp.project.created'
+            : 'worktajmApp.project.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({ name: 'projectListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -70,6 +83,10 @@ export class ProjectDialogComponent implements OnInit {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    trackCustomerById(index: number, item: Customer) {
+        return item.id;
     }
 }
 

@@ -2,23 +2,27 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "timeEntry",
-            "otherEntityName": "timeEntry",
-            "otherEntityRelationshipName": "project"
+            "relationshipType": "many-to-one",
+            "relationshipName": "belongsTo",
+            "otherEntityName": "customer",
+            "otherEntityField": "name"
         }
     ],
     "fields": [
         {
             "fieldName": "name",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "description",
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170525091355",
+    "changelogDate": "20170702232114",
+    "javadoc": "The project associated with a time entry.\n\nEach project belongs to either an user or an organization.",
     "entityTableName": "project",
     "dto": "mapstruct",
     "pagination": "pagination",

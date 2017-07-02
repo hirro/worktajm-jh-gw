@@ -17,19 +17,19 @@ eureka:
     client:
         enabled: true
     instance:
-        appname: worktajmGw
-        instanceId: worktajmGw:${spring.application.instance-id:${random.value}}
+        appname: worktajm
+        instanceId: worktajm:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
-        name: worktajmGw
+        name: worktajm
     jackson:
         serialization.write_dates_as_timestamps: false
     cache:
         type: none
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:worktajmGw;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:worktajm;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
@@ -55,8 +55,8 @@ spring:
             cluster-nodes:
             properties:
                 path:
-                    logs: target/elasticsearch/log
-                    data: target/elasticsearch/data
+                    logs: build/elasticsearch/log
+                    data: build/elasticsearch/data
     mail:
         host: localhost
     messages:
@@ -91,18 +91,18 @@ jhipster:
         queue-capacity: 10000
     # To test logstash appender
     logging:
-            logstash:
-                enabled: true
-                host: localhost
-                port: 5000
-                queue-size: 512
+        logstash:
+            enabled: true
+            host: localhost
+            port: 5000
+            queue-size: 512
     mail:
         from: test@localhost
         base-url: http://127.0.0.1:8080
     security:
         authentication:
             jwt:
-                secret: 7298a3b46bf41564c448229c6b250b7b0b06b1f9
+                secret: 08825583d7b6fb8a0a175038de7eabfd6a54b0e3
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

@@ -1,14 +1,14 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { WorktajmGwSharedModule } from '../shared';
+import { WorktajmSharedModule } from '../shared';
 
 import {
     Register,
-    Activate,
-    Password,
-    PasswordResetInit,
-    PasswordResetFinish,
+    ActivateService,
+    PasswordService,
+    PasswordResetInitService,
+    PasswordResetFinishService,
     PasswordStrengthBarComponent,
     RegisterComponent,
     ActivateComponent,
@@ -16,15 +16,19 @@ import {
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
+    SocialRegisterComponent,
+    SocialAuthComponent,
     accountState
 } from './';
 
 @NgModule({
     imports: [
-        WorktajmGwSharedModule,
+        WorktajmSharedModule,
         RouterModule.forRoot(accountState, { useHash: true })
     ],
     declarations: [
+        SocialRegisterComponent,
+        SocialAuthComponent,
         ActivateComponent,
         RegisterComponent,
         PasswordComponent,
@@ -35,11 +39,11 @@ import {
     ],
     providers: [
         Register,
-        Activate,
-        Password,
-        PasswordResetInit,
-        PasswordResetFinish
+        ActivateService,
+        PasswordService,
+        PasswordResetInitService,
+        PasswordResetFinishService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class WorktajmGwAccountModule {}
+export class WorktajmAccountModule {}

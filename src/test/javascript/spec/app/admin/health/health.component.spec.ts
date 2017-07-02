@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { WorktajmGwTestModule } from '../../../test.module';
+import { WorktajmTestModule } from '../../../test.module';
 import { JhiHealthCheckComponent } from '../../../../../../main/webapp/app/admin/health/health.component';
 import { JhiHealthService } from '../../../../../../main/webapp/app/admin/health/health.service';
 
@@ -15,7 +15,7 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [WorktajmGwTestModule],
+                imports: [WorktajmTestModule],
                 declarations: [JhiHealthCheckComponent],
                 providers: [
                     JhiHealthService,
@@ -24,12 +24,7 @@ describe('Component Tests', () => {
                         useValue: null
                     }
                 ]
-            })
-            .overrideComponent(JhiHealthCheckComponent, {
-                set: {
-                    template: ''
-                }
-            })
+            }).overrideTemplate(JhiHealthCheckComponent, '')
             .compileComponents();
         }));
 

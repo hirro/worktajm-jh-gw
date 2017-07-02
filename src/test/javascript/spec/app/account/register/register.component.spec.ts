@@ -3,7 +3,7 @@ import { Renderer, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
-import { WorktajmGwTestModule } from '../../../test.module';
+import { WorktajmTestModule } from '../../../test.module';
 import { LoginModalService } from '../../../../../../main/webapp/app/shared';
 import { Register } from '../../../../../../main/webapp/app/account/register/register.service';
 import { RegisterComponent } from '../../../../../../main/webapp/app/account/register/register.component';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [WorktajmGwTestModule],
+                imports: [WorktajmTestModule],
                 declarations: [RegisterComponent],
                 providers: [
                     Register,
@@ -33,11 +33,8 @@ describe('Component Tests', () => {
                         useValue: null
                     }
                 ]
-            }).overrideComponent(RegisterComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(RegisterComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {

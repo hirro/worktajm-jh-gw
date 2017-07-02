@@ -1,6 +1,6 @@
 package com.worktajm.gw.web.rest;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 
 import com.worktajm.gw.domain.TimeEntry;
 import com.worktajm.gw.repository.TimeEntryRepository;
@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see TimeEntryResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 public class TimeEntryResourceIntTest {
 
     private static final ZonedDateTime DEFAULT_START = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
@@ -152,6 +152,25 @@ public class TimeEntryResourceIntTest {
         // Validate the Alice in the database
         List<TimeEntry> timeEntryList = timeEntryRepository.findAll();
         assertThat(timeEntryList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkStartIsRequired() throws Exception {
+        int databaseSizeBeforeTest = timeEntryRepository.findAll().size();
+        // set the field null
+        timeEntry.setStart(null);
+
+        // Create the TimeEntry, which fails.
+        TimeEntryDTO timeEntryDTO = timeEntryMapper.toDto(timeEntry);
+
+        restTimeEntryMockMvc.perform(post("/api/time-entries")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(timeEntryDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<TimeEntry> timeEntryList = timeEntryRepository.findAll();
+        assertThat(timeEntryList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

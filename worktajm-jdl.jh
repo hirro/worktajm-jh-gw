@@ -1,17 +1,6 @@
-
-/**
- * Postal address.
- */
-entity Address {
-	line1 String required,
-	line2 String
-	line3 String,
-	city String required,
-	zipOrPostcode String required,
-	stateProvinceCounty String,
-	countryId String required,
-	otherAddressDetails String
-}
+#fontSize: 12
+#spacing: 150
+#padding: 10
 
 /**
  * The project associated with a time entry.
@@ -24,7 +13,15 @@ entity Project {
 }
 
 entity Customer {
-	name String required
+	name String required,
+	addressLine1 String required,
+	addressLine2 String
+	addressLine3 String,
+	city String required,
+	zipOrPostcode String required,
+	stateProvinceCounty String,
+	country String required,
+	addressDetails String
 }
 
 /**
@@ -43,24 +40,31 @@ entity TimeEntry {
  */
 entity Domain {
 	name String required,
+	domainName String required,
     organizationNumber String,
-    adress String,
+	addressLine1 String required,
+	addressLine2 String
+	addressLine3 String,
+	city String required,
+	zipOrPostcode String required,
+	stateProvinceCounty String,
+	country String required,
+	addressDetails String
 }
 
+// Time Entry relationships
+relationship ManyToOne { TimeEntry{project(name)} to Project }
+relationship ManyToOne { TimeEntry{createdBy(email)} to User }
 
-relationship OneToMany { Project{timeEntry} to TimeEntry{project(name)} }
-relationship OneToMany { Project{belongsTo} to Customer }
-relationship OneToOne { Domain{postalAddress} to Address}
-relationship ManyToOne { Domain{customers} to Customer{domain} }
-relationship ManyToOne { Customer{billingAddress} to Address{organization} }
+// Domain relationships
+relationship OneToMany { Domain{customers(name)} to Customer{domain(name)} }
+relationship ManyToMany { Domain{members(login)} to User }
 
-// Special user relationships
-relationship ManyToOne { TimeEntry{createdBy} to User }
-relationship ManyToMany { Domain{members} to User }
+// Project relationships
+
+// Customer relationships
+relationship OneToMany { Customer{projects} to Project{belongsTo(name)} }
 
 paginate * with pagination
 
 dto * with mapstruct
-
-
-

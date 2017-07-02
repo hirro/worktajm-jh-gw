@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { TimeEntry } from './time-entry.model';
 import { TimeEntryService } from './time-entry.service';
+
 @Injectable()
 export class TimeEntryPopupService {
     private isOpen = false;

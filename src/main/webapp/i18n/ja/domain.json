@@ -1,0 +1,34 @@
+{
+    "worktajmApp": {
+        "domain" : {
+            "home": {
+                "title": "Domains",
+                "createLabel": "Domain を追加",
+                "createOrEditLabel": "Domainを追加または編集",
+                "search": "Search for Domain"
+            },
+            "created": "A new Domain is created with identifier {{ param }}",
+            "updated": "A Domain is updated with identifier {{ param }}",
+            "deleted": "A Domain is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Domain {{ id }}を削除してもよろしいですか？"
+            },
+            "detail": {
+                "title": "Domain"
+            },
+            "name": "Name",
+            "domainName": "Domain Name",
+            "organizationNumber": "Organization Number",
+            "addressLine1": "Address Line 1",
+            "addressLine2": "Address Line 2",
+            "addressLine3": "Address Line 3",
+            "city": "City",
+            "zipOrPostcode": "Zip Or Postcode",
+            "stateProvinceCounty": "State Province County",
+            "country": "Country",
+            "addressDetails": "Address Details",
+            "customers": "Customers",
+            "members": "Members"
+        }
+    }
+}

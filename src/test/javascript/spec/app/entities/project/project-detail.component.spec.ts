@@ -3,8 +3,8 @@ import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
-import { WorktajmGwTestModule } from '../../../test.module';
+import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
+import { WorktajmTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { ProjectDetailComponent } from '../../../../../../main/webapp/app/entities/project/project-detail.component';
 import { ProjectService } from '../../../../../../main/webapp/app/entities/project/project.service';
@@ -19,24 +19,21 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [WorktajmGwTestModule],
+                imports: [WorktajmTestModule],
                 declarations: [ProjectDetailComponent],
                 providers: [
-                    DateUtils,
-                    DataUtils,
+                    JhiDateUtils,
+                    JhiDataUtils,
                     DatePipe,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
                     ProjectService,
-                    EventManager
+                    JhiEventManager
                 ]
-            }).overrideComponent(ProjectDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(ProjectDetailComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {

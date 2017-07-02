@@ -1,6 +1,6 @@
 package com.worktajm.gw.repository;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 import com.worktajm.gw.config.Constants;
 import com.worktajm.gw.config.audit.AuditEventConverter;
 import com.worktajm.gw.domain.PersistentAuditEvent;
@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see CustomAuditEventRepository
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 @Transactional
 public class CustomAuditEventRepositoryIntTest {
 

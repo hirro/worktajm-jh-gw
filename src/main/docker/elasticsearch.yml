@@ -1,9 +1,9 @@
 version: '2'
 services:
-    worktajmgw-elasticsearch:
+    worktajm-elasticsearch:
         image: elasticsearch:2.4.1
         # volumes:
-        #     - ~/volumes/jhipster/worktajmGw/elasticsearch/:/usr/share/elasticsearch/data/
+        #     - ~/volumes/jhipster/worktajm/elasticsearch/:/usr/share/elasticsearch/data/
         ports:
             - 9200:9200
             - 9300:9300

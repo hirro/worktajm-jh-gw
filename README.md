@@ -1,9 +1,5 @@
-# worktajmGw
-This application was generated using JHipster 4.5.1, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.5.1](https://jhipster.github.io/documentation-archive/v4.5.1).
-
-This is a "gateway" application intended to be part of a microservice architecture, please refer to the [Doing microservices with JHipster][] page of the documentation for more information.
-
-This application is configured for Service Discovery and Configuration with the JHipster-Registry. On launch, it will refuse to start if it is not able to connect to the JHipster-Registry at [http://localhost:8761](http://localhost:8761). For more information, read our documentation on [Service Discovery and Configuration with the JHipster-Registry][].
+# worktajm
+This application was generated using JHipster 4.5.6, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.5.6](https://jhipster.github.io/documentation-archive/v4.5.6).
 
 ## Development
 
@@ -25,7 +21,7 @@ We use yarn scripts and [Webpack][] as our build system.
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
-    ./mvnw
+    ./gradlew
     yarn start
 
 [Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
@@ -76,14 +72,14 @@ will generate few files:
 
 ## Building for production
 
-To optimize the worktajmGw application for production, run:
+To optimize the worktajm application for production, run:
 
-    ./mvnw -Pprod clean package
+    ./gradlew -Pprod clean bootRepackage
 
 This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
 To ensure everything worked, run:
 
-    java -jar target/*.war
+    java -jar build/libs/*.war
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
@@ -93,7 +89,7 @@ Refer to [Using JHipster in production][] for more details.
 
 To launch your application's tests, run:
 
-    ./mvnw clean test
+    ./gradlew test
 
 ### Client tests
 
@@ -102,12 +98,12 @@ Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in
     yarn test
 
 UI end-to-end tests are powered by [Protractor][], which is built on top of WebDriverJS. They're located in [src/test/javascript/e2e](src/test/javascript/e2e)
-and can be run by starting Spring Boot in one terminal (`./mvnw spring-boot:run`) and running the tests (`yarn run e2e`) in a second one.
+and can be run by starting Spring Boot in one terminal (`./gradlew bootRun`) and running the tests (`yarn run e2e`) in a second one.
 ### Other tests
 
 Performance tests are run by [Gatling][] and written in Scala. They're located in [src/test/gatling](src/test/gatling) and can be run with:
 
-    ./mvnw gatling:execute
+    ./gradlew gatlingRun
 
 For more information, refer to the [Running tests page][].
 
@@ -125,7 +121,7 @@ To stop it and remove the container, run:
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
 
-    ./mvnw package -Pprod docker:build
+    ./gradlew bootRepackage -Pprod buildDocker
 
 Then run:
 
@@ -138,14 +134,14 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [JHipster Homepage and latest documentation]: https://jhipster.github.io
-[JHipster 4.5.1 archive]: https://jhipster.github.io/documentation-archive/v4.5.1
-[Doing microservices with JHipster]: https://jhipster.github.io/documentation-archive/v4.5.1/microservices-architecture/
-[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.5.1/development/
-[Service Discovery and Configuration with the JHipster-Registry]: https://jhipster.github.io/documentation-archive/v4.5.1/microservices-architecture/#jhipster-registry
-[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.5.1/docker-compose
-[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.5.1/production/
-[Running tests page]: https://jhipster.github.io/documentation-archive/v4.5.1/running-tests/
-[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.5.1/setting-up-ci/
+[JHipster 4.5.6 archive]: https://jhipster.github.io/documentation-archive/v4.5.6
+
+[Using JHipster in development]: https://jhipster.github.io/documentation-archive/v4.5.6/development/
+[Service Discovery and Configuration with the JHipster-Registry]: https://jhipster.github.io/documentation-archive/v4.5.6/microservices-architecture/#jhipster-registry
+[Using Docker and Docker-Compose]: https://jhipster.github.io/documentation-archive/v4.5.6/docker-compose
+[Using JHipster in production]: https://jhipster.github.io/documentation-archive/v4.5.6/production/
+[Running tests page]: https://jhipster.github.io/documentation-archive/v4.5.6/running-tests/
+[Setting up Continuous Integration]: https://jhipster.github.io/documentation-archive/v4.5.6/setting-up-ci/
 
 [Gatling]: http://gatling.io/
 [Node.js]: https://nodejs.org/

@@ -1,32 +1,30 @@
 
 <div *ngIf="timeEntry">
-    <h2><span jhiTranslate="worktajmGwApp.timeEntry.detail.title">Time Entry</span> {{timeEntry.id}}</h2>
+    <h2><span jhiTranslate="worktajmApp.timeEntry.detail.title">Time Entry</span> {{timeEntry.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="worktajmGwApp.timeEntry.start">Start</span></dt>
+        <dt><span jhiTranslate="worktajmApp.timeEntry.start">Start</span></dt>
         <dd>
             <span>{{timeEntry.start | date:'medium'}}</span>
         </dd>
-        <dt><span jhiTranslate="worktajmGwApp.timeEntry.end">End</span></dt>
+        <dt><span jhiTranslate="worktajmApp.timeEntry.end">End</span></dt>
         <dd>
             <span>{{timeEntry.end | date:'medium'}}</span>
         </dd>
-        <dt><span jhiTranslate="worktajmGwApp.timeEntry.comment">Comment</span></dt>
+        <dt><span jhiTranslate="worktajmApp.timeEntry.comment">Comment</span></dt>
         <dd>
             <span>{{timeEntry.comment}}</span>
         </dd>
-        <dt><span jhiTranslate="worktajmGwApp.timeEntry.worker">Worker</span></dt>
-        <dd>
-            <div *ngIf="timeEntry.workerId">
-                <a [routerLink]="['/worker', timeEntry.workerId]">{{timeEntry.workerEmail}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="worktajmGwApp.timeEntry.project">Project</span></dt>
+        <dt><span jhiTranslate="worktajmApp.timeEntry.project">Project</span></dt>
         <dd>
             <div *ngIf="timeEntry.projectId">
                 <a [routerLink]="['/project', timeEntry.projectId]">{{timeEntry.projectName}}</a>
             </div>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.timeEntry.createdBy">Created By</span></dt>
+        <dd>
+            {{timeEntry.createdByEmail}}
         </dd>
     </dl>
 

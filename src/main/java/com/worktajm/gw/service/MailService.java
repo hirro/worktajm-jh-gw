@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Locale;
@@ -22,7 +23,6 @@ import java.util.Locale;
  * Service for sending emails.
  * <p>
  * We use the @Async annotation to send emails asynchronously.
- * </p>
  */
 @Service
 public class MailService {
@@ -66,7 +66,11 @@ public class MailService {
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
         } catch (Exception e) {
-            log.warn("Email could not be sent to user '{}'", to, e);
+            if (log.isDebugEnabled()) {
+                log.warn("Email could not be sent to user '{}'", to, e);
+            } else {
+                log.warn("Email could not be sent to user '{}': {}", to, e.getMessage());
+            }
         }
     }
 
@@ -98,5 +102,17 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendSocialRegistrationValidationEmail(User user, String provider) {
+        log.debug("Sending social registration validation email to '{}'", user.getEmail());
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable("provider", StringUtils.capitalize(provider));
+        String content = templateEngine.process("socialRegistrationValidationEmail", context);
+        String subject = messageSource.getMessage("email.social.registration.title", null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
     }
 }

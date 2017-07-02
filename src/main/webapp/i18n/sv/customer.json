@@ -1,0 +1,32 @@
+{
+    "worktajmApp": {
+        "customer" : {
+            "home": {
+                "title": "Customers",
+                "createLabel": "Skapa en ny Customer",
+                "createOrEditLabel": "Skapa eller ändra en Customer",
+                "search": "Sök efter Customer"
+            },
+            "created": "En ny Customer är skapad med id {{ param }}",
+            "updated": "En Customer är uppdaterad med id  {{ param }}",
+            "deleted": "En Customer är borttagen med id  {{ param }}",
+            "delete": {
+                "question": "Är du säker på att du vill ta bort Customer {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer"
+            },
+            "name": "Name",
+            "addressLine1": "Address Line 1",
+            "addressLine2": "Address Line 2",
+            "addressLine3": "Address Line 3",
+            "city": "City",
+            "zipOrPostcode": "Zip Or Postcode",
+            "stateProvinceCounty": "State Province County",
+            "country": "Country",
+            "addressDetails": "Address Details",
+            "projects": "Projects",
+            "domain": "Domain"
+        }
+    }
+}

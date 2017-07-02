@@ -24,7 +24,7 @@ describe('Project e2e test', () => {
     it('should load Projects', () => {
         entityMenu.click();
         element.all(by.css('[routerLink="project"]')).first().click().then(() => {
-            const expectVal = /worktajmGwApp.project.home.title/;
+            const expectVal = /worktajmApp.project.home.title/;
             element.all(by.css('h2 span')).first().getAttribute('jhiTranslate').then((value) => {
                 expect(value).toMatch(expectVal);
             });
@@ -33,7 +33,7 @@ describe('Project e2e test', () => {
 
     it('should load create Project dialog', function () {
         element(by.css('button.create-project')).click().then(() => {
-            const expectVal = /worktajmGwApp.project.home.createOrEditLabel/;
+            const expectVal = /worktajmApp.project.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
                 expect(value).toMatch(expectVal);
             });

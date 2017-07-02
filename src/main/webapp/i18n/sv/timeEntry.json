@@ -1,0 +1,26 @@
+{
+    "worktajmApp": {
+        "timeEntry" : {
+            "home": {
+                "title": "Time Entries",
+                "createLabel": "Skapa en ny Time Entry",
+                "createOrEditLabel": "Skapa eller ändra en Time Entry",
+                "search": "Sök efter Time Entry"
+            },
+            "created": "En ny Time Entry är skapad med id {{ param }}",
+            "updated": "En Time Entry är uppdaterad med id  {{ param }}",
+            "deleted": "En Time Entry är borttagen med id  {{ param }}",
+            "delete": {
+                "question": "Är du säker på att du vill ta bort Time Entry {{ id }}?"
+            },
+            "detail": {
+                "title": "Time Entry"
+            },
+            "start": "Start",
+            "end": "End",
+            "comment": "Comment",
+            "project": "Project",
+            "createdBy": "Created By"
+        }
+    }
+}

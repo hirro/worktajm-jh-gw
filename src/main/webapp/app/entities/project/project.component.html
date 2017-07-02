@@ -1,9 +1,9 @@
 <div>
     <h2>
-        <span jhiTranslate="worktajmGwApp.project.home.title">Projects</span>
+        <span jhiTranslate="worktajmApp.project.home.title">Projects</span>
         <button class="btn btn-primary float-right create-project" [routerLink]="['/', { outlets: { popup: ['project-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span class="hidden-sm-down"  jhiTranslate="worktajmGwApp.project.home.createLabel">
+            <span class="hidden-sm-down"  jhiTranslate="worktajmApp.project.home.createLabel">
             Create new Project
             </span>
         </button>
@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'worktajmGwApp.project.home.search' | translate }}">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'worktajmApp.project.home.search' | translate }}">
                     <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
                         <span class="fa fa-search"></span>
                     </button>
@@ -30,8 +30,9 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="worktajmGwApp.project.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="description"><span jhiTranslate="worktajmGwApp.project.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="worktajmApp.project.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="worktajmApp.project.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="belongsToName"><span jhiTranslate="worktajmApp.project.belongsTo">Belongs To</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -40,6 +41,11 @@
                 <td><a [routerLink]="['../project', project.id ]">{{project.id}}</a></td>
                 <td>{{project.name}}</td>
                 <td>{{project.description}}</td>
+                <td>
+                    <div *ngIf="project.belongsToId">
+                        <a [routerLink]="['../customer', project.belongsToId  ]" >{{project.belongsToName}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

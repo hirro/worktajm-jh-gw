@@ -3,21 +3,24 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "worker",
-            "otherEntityName": "worker",
-            "otherEntityField": "email"
-        },
-        {
-            "relationshipType": "many-to-one",
             "relationshipName": "project",
             "otherEntityName": "project",
             "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "createdBy",
+            "otherEntityName": "user",
+            "otherEntityField": "email"
         }
     ],
     "fields": [
         {
             "fieldName": "start",
-            "fieldType": "ZonedDateTime"
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "end",
@@ -28,9 +31,10 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20170525091356",
+    "changelogDate": "20170702232116",
+    "javadoc": "The time entry that logs work on a particular project.\n\nEach time entry belongs to one user.",
     "entityTableName": "time_entry",
     "dto": "mapstruct",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "no"
 }

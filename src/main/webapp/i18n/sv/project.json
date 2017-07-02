@@ -1,0 +1,24 @@
+{
+    "worktajmApp": {
+        "project" : {
+            "home": {
+                "title": "Projects",
+                "createLabel": "Skapa en ny Project",
+                "createOrEditLabel": "Skapa eller ändra en Project",
+                "search": "Sök efter Project"
+            },
+            "created": "En ny Project är skapad med id {{ param }}",
+            "updated": "En Project är uppdaterad med id  {{ param }}",
+            "deleted": "En Project är borttagen med id  {{ param }}",
+            "delete": {
+                "question": "Är du säker på att du vill ta bort Project {{ id }}?"
+            },
+            "detail": {
+                "title": "Project"
+            },
+            "name": "Name",
+            "description": "Description",
+            "belongsTo": "Belongs To"
+        }
+    }
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { PaginationUtil } from 'ng-jhipster';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { TimeEntryComponent } from './time-entry.component';
 import { TimeEntryDetailComponent } from './time-entry-detail.component';
@@ -11,13 +11,32 @@ import { TimeEntryDeletePopupComponent } from './time-entry-delete-dialog.compon
 
 import { Principal } from '../../shared';
 
+@Injectable()
+export class TimeEntryResolvePagingParams implements Resolve<any> {
+
+    constructor(private paginationUtil: JhiPaginationUtil) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        return {
+            page: this.paginationUtil.parsePage(page),
+            predicate: this.paginationUtil.parsePredicate(sort),
+            ascending: this.paginationUtil.parseAscending(sort)
+      };
+    }
+}
+
 export const timeEntryRoute: Routes = [
     {
         path: 'time-entry',
         component: TimeEntryComponent,
+        resolve: {
+            'pagingParams': TimeEntryResolvePagingParams
+        },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.timeEntry.home.title'
+            pageTitle: 'worktajmApp.timeEntry.home.title'
         },
         canActivate: [UserRouteAccessService]
     }, {
@@ -25,7 +44,7 @@ export const timeEntryRoute: Routes = [
         component: TimeEntryDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.timeEntry.home.title'
+            pageTitle: 'worktajmApp.timeEntry.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -37,7 +56,7 @@ export const timeEntryPopupRoute: Routes = [
         component: TimeEntryPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.timeEntry.home.title'
+            pageTitle: 'worktajmApp.timeEntry.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -47,7 +66,7 @@ export const timeEntryPopupRoute: Routes = [
         component: TimeEntryPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.timeEntry.home.title'
+            pageTitle: 'worktajmApp.timeEntry.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -57,7 +76,7 @@ export const timeEntryPopupRoute: Routes = [
         component: TimeEntryDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.timeEntry.home.title'
+            pageTitle: 'worktajmApp.timeEntry.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

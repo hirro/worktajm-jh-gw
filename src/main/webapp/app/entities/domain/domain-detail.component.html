@@ -1,0 +1,71 @@
+
+<div *ngIf="domain">
+    <h2><span jhiTranslate="worktajmApp.domain.detail.title">Domain</span> {{domain.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="worktajmApp.domain.name">Name</span></dt>
+        <dd>
+            <span>{{domain.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.domainName">Domain Name</span></dt>
+        <dd>
+            <span>{{domain.domainName}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.organizationNumber">Organization Number</span></dt>
+        <dd>
+            <span>{{domain.organizationNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.addressLine1">Address Line 1</span></dt>
+        <dd>
+            <span>{{domain.addressLine1}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.addressLine2">Address Line 2</span></dt>
+        <dd>
+            <span>{{domain.addressLine2}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.addressLine3">Address Line 3</span></dt>
+        <dd>
+            <span>{{domain.addressLine3}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.city">City</span></dt>
+        <dd>
+            <span>{{domain.city}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.zipOrPostcode">Zip Or Postcode</span></dt>
+        <dd>
+            <span>{{domain.zipOrPostcode}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.stateProvinceCounty">State Province County</span></dt>
+        <dd>
+            <span>{{domain.stateProvinceCounty}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.country">Country</span></dt>
+        <dd>
+            <span>{{domain.country}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.addressDetails">Address Details</span></dt>
+        <dd>
+            <span>{{domain.addressDetails}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.domain.members">Members</span></dt>
+        <dd>
+            <span *ngFor="let members of domain.members; let last = last">
+                {{members.login}}{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'domain/'+ domain.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

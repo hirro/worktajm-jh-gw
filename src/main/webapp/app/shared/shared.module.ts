@@ -1,10 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {
-    WorktajmGwSharedLibsModule,
-    WorktajmGwSharedCommonModule,
+    WorktajmSharedLibsModule,
+    WorktajmSharedCommonModule,
     CSRFService,
     AuthServerProvider,
     AccountService,
@@ -15,20 +14,22 @@ import {
     Principal,
     JhiTrackerService,
     HasAnyAuthorityDirective,
+    JhiSocialComponent,
+    SocialService,
     JhiLoginModalComponent
 } from './';
 
 @NgModule({
     imports: [
-        WorktajmGwSharedLibsModule,
-        WorktajmGwSharedCommonModule
+        WorktajmSharedLibsModule,
+        WorktajmSharedCommonModule
     ],
     declarations: [
+        JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective
     ],
     providers: [
-        CookieService,
         LoginService,
         LoginModalService,
         AccountService,
@@ -37,12 +38,14 @@ import {
         CSRFService,
         JhiTrackerService,
         AuthServerProvider,
+        SocialService,
         UserService,
         DatePipe
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
-        WorktajmGwSharedCommonModule,
+        WorktajmSharedCommonModule,
+        JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
         DatePipe
@@ -50,4 +53,4 @@ import {
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class WorktajmGwSharedModule {}
+export class WorktajmSharedModule {}

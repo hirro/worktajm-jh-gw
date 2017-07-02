@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Project } from './project.model';
 import { ProjectService } from './project.service';
+
 @Injectable()
 export class ProjectPopupService {
     private isOpen = false;

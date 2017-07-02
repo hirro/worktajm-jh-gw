@@ -1,6 +1,6 @@
 package com.worktajm.gw.service;
 
-import com.worktajm.gw.WorktajmGwApp;
+import com.worktajm.gw.WorktajmApp;
 import com.worktajm.gw.domain.User;
 import com.worktajm.gw.config.Constants;
 import com.worktajm.gw.repository.UserRepository;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.*;
  * @see UserService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorktajmGwApp.class)
+@SpringBootTest(classes = WorktajmApp.class)
 @Transactional
 public class UserServiceIntTest {
 

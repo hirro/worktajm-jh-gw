@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -40,7 +41,7 @@ public class TimeEntryResource {
     private final Logger log = LoggerFactory.getLogger(TimeEntryResource.class);
 
     private static final String ENTITY_NAME = "timeEntry";
-        
+
     private final TimeEntryRepository timeEntryRepository;
 
     private final TimeEntryMapper timeEntryMapper;
@@ -62,7 +63,7 @@ public class TimeEntryResource {
      */
     @PostMapping("/time-entries")
     @Timed
-    public ResponseEntity<TimeEntryDTO> createTimeEntry(@RequestBody TimeEntryDTO timeEntryDTO) throws URISyntaxException {
+    public ResponseEntity<TimeEntryDTO> createTimeEntry(@Valid @RequestBody TimeEntryDTO timeEntryDTO) throws URISyntaxException {
         log.debug("REST request to save TimeEntry : {}", timeEntryDTO);
         if (timeEntryDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new timeEntry cannot already have an ID")).body(null);
@@ -82,12 +83,12 @@ public class TimeEntryResource {
      * @param timeEntryDTO the timeEntryDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated timeEntryDTO,
      * or with status 400 (Bad Request) if the timeEntryDTO is not valid,
-     * or with status 500 (Internal Server Error) if the timeEntryDTO couldnt be updated
+     * or with status 500 (Internal Server Error) if the timeEntryDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/time-entries")
     @Timed
-    public ResponseEntity<TimeEntryDTO> updateTimeEntry(@RequestBody TimeEntryDTO timeEntryDTO) throws URISyntaxException {
+    public ResponseEntity<TimeEntryDTO> updateTimeEntry(@Valid @RequestBody TimeEntryDTO timeEntryDTO) throws URISyntaxException {
         log.debug("REST request to update TimeEntry : {}", timeEntryDTO);
         if (timeEntryDTO.getId() == null) {
             return createTimeEntry(timeEntryDTO);
@@ -150,7 +151,7 @@ public class TimeEntryResource {
      * SEARCH  /_search/time-entries?query=:query : search for the timeEntry corresponding
      * to the query.
      *
-     * @param query the query of the timeEntry search 
+     * @param query the query of the timeEntry search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -162,6 +163,5 @@ public class TimeEntryResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/time-entries");
         return new ResponseEntity<>(timeEntryMapper.toDto(page.getContent()), headers, HttpStatus.OK);
     }
-
 
 }

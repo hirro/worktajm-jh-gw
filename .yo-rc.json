@@ -4,14 +4,14 @@
       "packageName": "com.worktajm.gw",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "4.5.1",
-    "baseName": "worktajmGw",
+    "jhipsterVersion": "4.5.6",
+    "baseName": "worktajm",
     "packageName": "com.worktajm.gw",
     "packageFolder": "com/worktajm/gw",
     "serverPort": "8080",
     "authenticationType": "jwt",
-    "hibernateCache": "hazelcast",
-    "clusteredHttpSession": "hazelcast",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": false,
     "websocket": "spring-websocket",
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
@@ -19,23 +19,47 @@
     "searchEngine": "elasticsearch",
     "messageBroker": false,
     "serviceDiscoveryType": "eureka",
-    "buildTool": "maven",
-    "enableSocialSignIn": false,
-    "jwtSecretKey": "7298a3b46bf41564c448229c6b250b7b0b06b1f9",
+    "buildTool": "gradle",
+    "enableSocialSignIn": true,
+    "jwtSecretKey": "08825583d7b6fb8a0a175038de7eabfd6a54b0e3",
     "clientFramework": "angular2",
     "useSass": false,
     "clientPackageManager": "yarn",
-    "applicationType": "gateway",
+    "applicationType": "monolith",
     "testFrameworks": [
       "gatling",
       "cucumber",
       "protractor"
     ],
     "jhiPrefix": "jhi",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-docker",
+        "version": "2.2.0"
+      },
+      {
+        "name": "generator-jhipster-ci",
+        "version": "1.0.0"
+      },
+      {
+        "name": "generator-jhipster-bootstrap-material-design",
+        "version": "3.5.1"
+      },
+      {
+        "name": "generator-jhipster-ff4j",
+        "version": "1.6.6"
+      },
+      {
+        "name": "generator-jhipster-elasticsearch-reindexer",
+        "version": "0.3.0"
+      }
+    ],
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": [
-      "en"
+      "en",
+      "ja",
+      "sv"
     ]
   }
 }

@@ -1,0 +1,34 @@
+{
+    "worktajmApp": {
+        "domain" : {
+            "home": {
+                "title": "Domains",
+                "createLabel": "Skapa en ny Domain",
+                "createOrEditLabel": "Skapa eller ändra en Domain",
+                "search": "Sök efter Domain"
+            },
+            "created": "En ny Domain är skapad med id {{ param }}",
+            "updated": "En Domain är uppdaterad med id  {{ param }}",
+            "deleted": "En Domain är borttagen med id  {{ param }}",
+            "delete": {
+                "question": "Är du säker på att du vill ta bort Domain {{ id }}?"
+            },
+            "detail": {
+                "title": "Domain"
+            },
+            "name": "Name",
+            "domainName": "Domain Name",
+            "organizationNumber": "Organization Number",
+            "addressLine1": "Address Line 1",
+            "addressLine2": "Address Line 2",
+            "addressLine3": "Address Line 3",
+            "city": "City",
+            "zipOrPostcode": "Zip Or Postcode",
+            "stateProvinceCounty": "State Province County",
+            "country": "Country",
+            "addressDetails": "Address Details",
+            "customers": "Customers",
+            "members": "Members"
+        }
+    }
+}

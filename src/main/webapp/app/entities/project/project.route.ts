@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { PaginationUtil } from 'ng-jhipster';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { ProjectComponent } from './project.component';
 import { ProjectDetailComponent } from './project-detail.component';
@@ -14,7 +14,7 @@ import { Principal } from '../../shared';
 @Injectable()
 export class ProjectResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {}
+    constructor(private paginationUtil: JhiPaginationUtil) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
@@ -36,7 +36,7 @@ export const projectRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.project.home.title'
+            pageTitle: 'worktajmApp.project.home.title'
         },
         canActivate: [UserRouteAccessService]
     }, {
@@ -44,7 +44,7 @@ export const projectRoute: Routes = [
         component: ProjectDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.project.home.title'
+            pageTitle: 'worktajmApp.project.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -56,7 +56,7 @@ export const projectPopupRoute: Routes = [
         component: ProjectPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.project.home.title'
+            pageTitle: 'worktajmApp.project.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -66,7 +66,7 @@ export const projectPopupRoute: Routes = [
         component: ProjectPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.project.home.title'
+            pageTitle: 'worktajmApp.project.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -76,7 +76,7 @@ export const projectPopupRoute: Routes = [
         component: ProjectDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'worktajmGwApp.project.home.title'
+            pageTitle: 'worktajmApp.project.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

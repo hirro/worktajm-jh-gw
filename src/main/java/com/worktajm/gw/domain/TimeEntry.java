@@ -1,17 +1,22 @@
 package com.worktajm.gw.domain;
 
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
- * A TimeEntry.
+ * The time entry that logs work on a particular project.
+ * 
+ * Each time entry belongs to one user.
  */
+@ApiModel(description = "The time entry that logs work on a particular project. Each time entry belongs to one user.")
 @Entity
 @Table(name = "time_entry")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -24,7 +29,8 @@ public class TimeEntry implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "jhi_start")
+    @NotNull
+    @Column(name = "jhi_start", nullable = false)
     private ZonedDateTime start;
 
     @Column(name = "jhi_end")
@@ -34,10 +40,10 @@ public class TimeEntry implements Serializable {
     private String comment;
 
     @ManyToOne
-    private Worker worker;
+    private Project project;
 
     @ManyToOne
-    private Project project;
+    private User createdBy;
 
     public Long getId() {
         return id;
@@ -86,19 +92,6 @@ public class TimeEntry implements Serializable {
         this.comment = comment;
     }
 
-    public Worker getWorker() {
-        return worker;
-    }
-
-    public TimeEntry worker(Worker worker) {
-        this.worker = worker;
-        return this;
-    }
-
-    public void setWorker(Worker worker) {
-        this.worker = worker;
-    }
-
     public Project getProject() {
         return project;
     }
@@ -110,6 +103,19 @@ public class TimeEntry implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public TimeEntry createdBy(User user) {
+        this.createdBy = user;
+        return this;
+    }
+
+    public void setCreatedBy(User user) {
+        this.createdBy = user;
     }
 
     @Override

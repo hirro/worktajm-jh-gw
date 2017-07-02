@@ -4,13 +4,13 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { TimeEntry } from './time-entry.model';
 import { TimeEntryPopupService } from './time-entry-popup.service';
 import { TimeEntryService } from './time-entry.service';
-import { Worker, WorkerService } from '../worker';
 import { Project, ProjectService } from '../project';
+import { User, UserService } from '../../shared';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -23,28 +23,29 @@ export class TimeEntryDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    workers: Worker[];
-
     projects: Project[];
+
+    users: User[];
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: AlertService,
+        private alertService: JhiAlertService,
         private timeEntryService: TimeEntryService,
-        private workerService: WorkerService,
         private projectService: ProjectService,
-        private eventManager: EventManager
+        private userService: UserService,
+        private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.workerService.query()
-            .subscribe((res: ResponseWrapper) => { this.workers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.projectService.query()
             .subscribe((res: ResponseWrapper) => { this.projects = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.userService.query()
+            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -53,19 +54,24 @@ export class TimeEntryDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.timeEntry.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.timeEntryService.update(this.timeEntry));
+                this.timeEntryService.update(this.timeEntry), false);
         } else {
             this.subscribeToSaveResponse(
-                this.timeEntryService.create(this.timeEntry));
+                this.timeEntryService.create(this.timeEntry), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<TimeEntry>) {
+    private subscribeToSaveResponse(result: Observable<TimeEntry>, isCreated: boolean) {
         result.subscribe((res: TimeEntry) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: TimeEntry) {
+    private onSaveSuccess(result: TimeEntry, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'worktajmApp.timeEntry.created'
+            : 'worktajmApp.timeEntry.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({ name: 'timeEntryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -85,11 +91,11 @@ export class TimeEntryDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackWorkerById(index: number, item: Worker) {
+    trackProjectById(index: number, item: Project) {
         return item.id;
     }
 
-    trackProjectById(index: number, item: Project) {
+    trackUserById(index: number, item: User) {
         return item.id;
     }
 }

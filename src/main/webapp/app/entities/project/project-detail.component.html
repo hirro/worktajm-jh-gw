@@ -1,16 +1,22 @@
 
 <div *ngIf="project">
-    <h2><span jhiTranslate="worktajmGwApp.project.detail.title">Project</span> {{project.id}}</h2>
+    <h2><span jhiTranslate="worktajmApp.project.detail.title">Project</span> {{project.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="worktajmGwApp.project.name">Name</span></dt>
+        <dt><span jhiTranslate="worktajmApp.project.name">Name</span></dt>
         <dd>
             <span>{{project.name}}</span>
         </dd>
-        <dt><span jhiTranslate="worktajmGwApp.project.description">Description</span></dt>
+        <dt><span jhiTranslate="worktajmApp.project.description">Description</span></dt>
         <dd>
             <span>{{project.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.project.belongsTo">Belongs To</span></dt>
+        <dd>
+            <div *ngIf="project.belongsToId">
+                <a [routerLink]="['/customer', project.belongsToId]">{{project.belongsToName}}</a>
+            </div>
         </dd>
     </dl>
 

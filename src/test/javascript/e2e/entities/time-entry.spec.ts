@@ -24,7 +24,7 @@ describe('TimeEntry e2e test', () => {
     it('should load TimeEntries', () => {
         entityMenu.click();
         element.all(by.css('[routerLink="time-entry"]')).first().click().then(() => {
-            const expectVal = /worktajmGwApp.timeEntry.home.title/;
+            const expectVal = /worktajmApp.timeEntry.home.title/;
             element.all(by.css('h2 span')).first().getAttribute('jhiTranslate').then((value) => {
                 expect(value).toMatch(expectVal);
             });
@@ -33,7 +33,7 @@ describe('TimeEntry e2e test', () => {
 
     it('should load create TimeEntry dialog', function () {
         element(by.css('button.create-time-entry')).click().then(() => {
-            const expectVal = /worktajmGwApp.timeEntry.home.createOrEditLabel/;
+            const expectVal = /worktajmApp.timeEntry.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
                 expect(value).toMatch(expectVal);
             });

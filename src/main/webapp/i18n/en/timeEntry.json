@@ -1,5 +1,5 @@
 {
-    "worktajmGwApp": {
+    "worktajmApp": {
         "timeEntry" : {
             "home": {
                 "title": "Time Entries",
@@ -19,8 +19,8 @@
             "start": "Start",
             "end": "End",
             "comment": "Comment",
-            "worker": "Worker",
-            "project": "Project"
+            "project": "Project",
+            "createdBy": "Created By"
         }
     }
 }

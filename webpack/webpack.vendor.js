@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+
 module.exports = {
     entry: {
         'vendor': [
@@ -13,11 +14,11 @@ module.exports = {
             '@angular/platform-browser-dynamic',
             '@angular/router',
             '@ng-bootstrap/ng-bootstrap',
-            'angular2-cookie',
             'ngx-infinite-scroll',
             'jquery',
             'ng-jhipster',
             'ng2-webstorage',
+            'ngx-cookie',
             'sockjs-client',
             'webstomp-client',
             'rxjs'
@@ -36,19 +37,19 @@ module.exports = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
-                loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]']
+                loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
             }
         ]
     },
     output: {
         filename: '[name].dll.js',
-        path: path.resolve('./target/www'),
+        path: path.resolve('./build/www'),
         library: '[name]'
     },
     plugins: [
         new webpack.DllPlugin({
             name: '[name]',
-            path: path.resolve('./target/www/[name].json')
+            path: path.resolve('./build/www/[name].json')
         })
     ]
 };

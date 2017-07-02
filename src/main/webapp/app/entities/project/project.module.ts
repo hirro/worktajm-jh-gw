@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { WorktajmGwSharedModule } from '../../shared';
+import { WorktajmSharedModule } from '../../shared';
 import {
     ProjectService,
     ProjectPopupService,
@@ -23,7 +23,7 @@ const ENTITY_STATES = [
 
 @NgModule({
     imports: [
-        WorktajmGwSharedModule,
+        WorktajmSharedModule,
         RouterModule.forRoot(ENTITY_STATES, { useHash: true })
     ],
     declarations: [
@@ -48,4 +48,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class WorktajmGwProjectModule {}
+export class WorktajmProjectModule {}

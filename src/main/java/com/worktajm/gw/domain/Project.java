@@ -1,19 +1,21 @@
 package com.worktajm.gw.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Project.
+ * The project associated with a time entry.
+ * 
+ * Each project belongs to either an user or an organization.
  */
+@ApiModel(description = "The project associated with a time entry. Each project belongs to either an user or an organization.")
 @Entity
 @Table(name = "project")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -26,16 +28,15 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "project")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<TimeEntry> timeEntries = new HashSet<>();
+    @ManyToOne
+    private Customer belongsTo;
 
     public Long getId() {
         return id;
@@ -71,29 +72,17 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public Set<TimeEntry> getTimeEntries() {
-        return timeEntries;
+    public Customer getBelongsTo() {
+        return belongsTo;
     }
 
-    public Project timeEntries(Set<TimeEntry> timeEntries) {
-        this.timeEntries = timeEntries;
+    public Project belongsTo(Customer customer) {
+        this.belongsTo = customer;
         return this;
     }
 
-    public Project addTimeEntry(TimeEntry timeEntry) {
-        this.timeEntries.add(timeEntry);
-        timeEntry.setProject(this);
-        return this;
-    }
-
-    public Project removeTimeEntry(TimeEntry timeEntry) {
-        this.timeEntries.remove(timeEntry);
-        timeEntry.setProject(null);
-        return this;
-    }
-
-    public void setTimeEntries(Set<TimeEntry> timeEntries) {
-        this.timeEntries = timeEntries;
+    public void setBelongsTo(Customer customer) {
+        this.belongsTo = customer;
     }
 
     @Override

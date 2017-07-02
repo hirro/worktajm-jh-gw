@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiTrackerService } from './../shared/tracker/tracker.service';
 
-import { WorktajmGwSharedModule } from '../shared';
+import { WorktajmSharedModule } from '../shared';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
@@ -25,8 +25,6 @@ import {
     JhiConfigurationService,
     JhiHealthService,
     JhiMetricsService,
-    GatewayRoutesService,
-    JhiGatewayComponent,
     JhiTrackerComponent,
     LogsService,
     UserResolvePagingParams,
@@ -36,7 +34,7 @@ import {
 
 @NgModule({
     imports: [
-        WorktajmGwSharedModule,
+        WorktajmSharedModule,
         RouterModule.forRoot(adminState, { useHash: true }),
         /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
@@ -53,7 +51,6 @@ import {
         JhiHealthCheckComponent,
         JhiHealthModalComponent,
         JhiDocsComponent,
-        JhiGatewayComponent,
         JhiTrackerComponent,
         JhiMetricsMonitoringComponent,
         JhiMetricsMonitoringModalComponent
@@ -69,7 +66,6 @@ import {
         JhiConfigurationService,
         JhiHealthService,
         JhiMetricsService,
-        GatewayRoutesService,
         LogsService,
         JhiTrackerService,
         UserResolvePagingParams,
@@ -78,4 +74,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class WorktajmGwAdminModule {}
+export class WorktajmAdminModule {}

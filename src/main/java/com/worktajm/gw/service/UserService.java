@@ -38,13 +38,16 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final SocialService socialService;
+
     private final UserSearchRepository userSearchRepository;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, SocialService socialService, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.socialService = socialService;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
     }
@@ -185,6 +188,7 @@ public class UserService {
                 userDTO.getAuthorities().stream()
                     .map(authorityRepository::findOne)
                     .forEach(managedAuthorities::add);
+                userSearchRepository.save(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
             })
@@ -193,6 +197,7 @@ public class UserService {
 
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
+            socialService.deleteUserSocialConnection(user.getLogin());
             userRepository.delete(user);
             userSearchRepository.delete(user);
             log.debug("Deleted User: {}", user);
@@ -232,7 +237,6 @@ public class UserService {
      * Not activated users should be automatically deleted after 3 days.
      * <p>
      * This is scheduled to get fired everyday, at 01:00 (am).
-     * </p>
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
