@@ -8,6 +8,12 @@
     -->
     <changeSet id="20170702232117-2" author="jhipster">
         
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="domain"
+                                 constraintName="fk_domain_address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+
         <addForeignKeyConstraint baseColumnNames="domains_id"
                                  baseTableName="domain_members"
                                  constraintName="fk_domain_members_domains_id"

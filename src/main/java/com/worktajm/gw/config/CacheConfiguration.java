@@ -51,6 +51,7 @@ public class CacheConfiguration {
             cm.createCache(com.worktajm.gw.domain.Domain.class.getName(), jcacheConfiguration);
             cm.createCache(com.worktajm.gw.domain.Domain.class.getName() + ".customers", jcacheConfiguration);
             cm.createCache(com.worktajm.gw.domain.Domain.class.getName() + ".members", jcacheConfiguration);
+            cm.createCache(com.worktajm.gw.domain.Address.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

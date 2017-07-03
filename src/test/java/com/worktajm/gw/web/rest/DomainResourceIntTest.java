@@ -49,30 +49,6 @@ public class DomainResourceIntTest {
     private static final String DEFAULT_ORGANIZATION_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_ORGANIZATION_NUMBER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ADDRESS_LINE_1 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_LINE_1 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_LINE_2 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_LINE_2 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_LINE_3 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_LINE_3 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_CITY = "AAAAAAAAAA";
-    private static final String UPDATED_CITY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ZIP_OR_POSTCODE = "AAAAAAAAAA";
-    private static final String UPDATED_ZIP_OR_POSTCODE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_STATE_PROVINCE_COUNTY = "AAAAAAAAAA";
-    private static final String UPDATED_STATE_PROVINCE_COUNTY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
-    private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_DETAILS = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_DETAILS = "BBBBBBBBBB";
-
     @Autowired
     private DomainRepository domainRepository;
 
@@ -118,15 +94,7 @@ public class DomainResourceIntTest {
         Domain domain = new Domain()
             .name(DEFAULT_NAME)
             .domainName(DEFAULT_DOMAIN_NAME)
-            .organizationNumber(DEFAULT_ORGANIZATION_NUMBER)
-            .addressLine1(DEFAULT_ADDRESS_LINE_1)
-            .addressLine2(DEFAULT_ADDRESS_LINE_2)
-            .addressLine3(DEFAULT_ADDRESS_LINE_3)
-            .city(DEFAULT_CITY)
-            .zipOrPostcode(DEFAULT_ZIP_OR_POSTCODE)
-            .stateProvinceCounty(DEFAULT_STATE_PROVINCE_COUNTY)
-            .country(DEFAULT_COUNTRY)
-            .addressDetails(DEFAULT_ADDRESS_DETAILS);
+            .organizationNumber(DEFAULT_ORGANIZATION_NUMBER);
         return domain;
     }
 
@@ -155,14 +123,6 @@ public class DomainResourceIntTest {
         assertThat(testDomain.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDomain.getDomainName()).isEqualTo(DEFAULT_DOMAIN_NAME);
         assertThat(testDomain.getOrganizationNumber()).isEqualTo(DEFAULT_ORGANIZATION_NUMBER);
-        assertThat(testDomain.getAddressLine1()).isEqualTo(DEFAULT_ADDRESS_LINE_1);
-        assertThat(testDomain.getAddressLine2()).isEqualTo(DEFAULT_ADDRESS_LINE_2);
-        assertThat(testDomain.getAddressLine3()).isEqualTo(DEFAULT_ADDRESS_LINE_3);
-        assertThat(testDomain.getCity()).isEqualTo(DEFAULT_CITY);
-        assertThat(testDomain.getZipOrPostcode()).isEqualTo(DEFAULT_ZIP_OR_POSTCODE);
-        assertThat(testDomain.getStateProvinceCounty()).isEqualTo(DEFAULT_STATE_PROVINCE_COUNTY);
-        assertThat(testDomain.getCountry()).isEqualTo(DEFAULT_COUNTRY);
-        assertThat(testDomain.getAddressDetails()).isEqualTo(DEFAULT_ADDRESS_DETAILS);
 
         // Validate the Domain in Elasticsearch
         Domain domainEs = domainSearchRepository.findOne(testDomain.getId());
@@ -229,82 +189,6 @@ public class DomainResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAddressLine1IsRequired() throws Exception {
-        int databaseSizeBeforeTest = domainRepository.findAll().size();
-        // set the field null
-        domain.setAddressLine1(null);
-
-        // Create the Domain, which fails.
-        DomainDTO domainDTO = domainMapper.toDto(domain);
-
-        restDomainMockMvc.perform(post("/api/domains")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(domainDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Domain> domainList = domainRepository.findAll();
-        assertThat(domainList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCityIsRequired() throws Exception {
-        int databaseSizeBeforeTest = domainRepository.findAll().size();
-        // set the field null
-        domain.setCity(null);
-
-        // Create the Domain, which fails.
-        DomainDTO domainDTO = domainMapper.toDto(domain);
-
-        restDomainMockMvc.perform(post("/api/domains")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(domainDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Domain> domainList = domainRepository.findAll();
-        assertThat(domainList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkZipOrPostcodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = domainRepository.findAll().size();
-        // set the field null
-        domain.setZipOrPostcode(null);
-
-        // Create the Domain, which fails.
-        DomainDTO domainDTO = domainMapper.toDto(domain);
-
-        restDomainMockMvc.perform(post("/api/domains")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(domainDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Domain> domainList = domainRepository.findAll();
-        assertThat(domainList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCountryIsRequired() throws Exception {
-        int databaseSizeBeforeTest = domainRepository.findAll().size();
-        // set the field null
-        domain.setCountry(null);
-
-        // Create the Domain, which fails.
-        DomainDTO domainDTO = domainMapper.toDto(domain);
-
-        restDomainMockMvc.perform(post("/api/domains")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(domainDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Domain> domainList = domainRepository.findAll();
-        assertThat(domainList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllDomains() throws Exception {
         // Initialize the database
         domainRepository.saveAndFlush(domain);
@@ -316,15 +200,7 @@ public class DomainResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(domain.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].domainName").value(hasItem(DEFAULT_DOMAIN_NAME.toString())))
-            .andExpect(jsonPath("$.[*].organizationNumber").value(hasItem(DEFAULT_ORGANIZATION_NUMBER.toString())))
-            .andExpect(jsonPath("$.[*].addressLine1").value(hasItem(DEFAULT_ADDRESS_LINE_1.toString())))
-            .andExpect(jsonPath("$.[*].addressLine2").value(hasItem(DEFAULT_ADDRESS_LINE_2.toString())))
-            .andExpect(jsonPath("$.[*].addressLine3").value(hasItem(DEFAULT_ADDRESS_LINE_3.toString())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
-            .andExpect(jsonPath("$.[*].zipOrPostcode").value(hasItem(DEFAULT_ZIP_OR_POSTCODE.toString())))
-            .andExpect(jsonPath("$.[*].stateProvinceCounty").value(hasItem(DEFAULT_STATE_PROVINCE_COUNTY.toString())))
-            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
-            .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS.toString())));
+            .andExpect(jsonPath("$.[*].organizationNumber").value(hasItem(DEFAULT_ORGANIZATION_NUMBER.toString())));
     }
 
     @Test
@@ -340,15 +216,7 @@ public class DomainResourceIntTest {
             .andExpect(jsonPath("$.id").value(domain.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.domainName").value(DEFAULT_DOMAIN_NAME.toString()))
-            .andExpect(jsonPath("$.organizationNumber").value(DEFAULT_ORGANIZATION_NUMBER.toString()))
-            .andExpect(jsonPath("$.addressLine1").value(DEFAULT_ADDRESS_LINE_1.toString()))
-            .andExpect(jsonPath("$.addressLine2").value(DEFAULT_ADDRESS_LINE_2.toString()))
-            .andExpect(jsonPath("$.addressLine3").value(DEFAULT_ADDRESS_LINE_3.toString()))
-            .andExpect(jsonPath("$.city").value(DEFAULT_CITY.toString()))
-            .andExpect(jsonPath("$.zipOrPostcode").value(DEFAULT_ZIP_OR_POSTCODE.toString()))
-            .andExpect(jsonPath("$.stateProvinceCounty").value(DEFAULT_STATE_PROVINCE_COUNTY.toString()))
-            .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY.toString()))
-            .andExpect(jsonPath("$.addressDetails").value(DEFAULT_ADDRESS_DETAILS.toString()));
+            .andExpect(jsonPath("$.organizationNumber").value(DEFAULT_ORGANIZATION_NUMBER.toString()));
     }
 
     @Test
@@ -372,15 +240,7 @@ public class DomainResourceIntTest {
         updatedDomain
             .name(UPDATED_NAME)
             .domainName(UPDATED_DOMAIN_NAME)
-            .organizationNumber(UPDATED_ORGANIZATION_NUMBER)
-            .addressLine1(UPDATED_ADDRESS_LINE_1)
-            .addressLine2(UPDATED_ADDRESS_LINE_2)
-            .addressLine3(UPDATED_ADDRESS_LINE_3)
-            .city(UPDATED_CITY)
-            .zipOrPostcode(UPDATED_ZIP_OR_POSTCODE)
-            .stateProvinceCounty(UPDATED_STATE_PROVINCE_COUNTY)
-            .country(UPDATED_COUNTRY)
-            .addressDetails(UPDATED_ADDRESS_DETAILS);
+            .organizationNumber(UPDATED_ORGANIZATION_NUMBER);
         DomainDTO domainDTO = domainMapper.toDto(updatedDomain);
 
         restDomainMockMvc.perform(put("/api/domains")
@@ -395,14 +255,6 @@ public class DomainResourceIntTest {
         assertThat(testDomain.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDomain.getDomainName()).isEqualTo(UPDATED_DOMAIN_NAME);
         assertThat(testDomain.getOrganizationNumber()).isEqualTo(UPDATED_ORGANIZATION_NUMBER);
-        assertThat(testDomain.getAddressLine1()).isEqualTo(UPDATED_ADDRESS_LINE_1);
-        assertThat(testDomain.getAddressLine2()).isEqualTo(UPDATED_ADDRESS_LINE_2);
-        assertThat(testDomain.getAddressLine3()).isEqualTo(UPDATED_ADDRESS_LINE_3);
-        assertThat(testDomain.getCity()).isEqualTo(UPDATED_CITY);
-        assertThat(testDomain.getZipOrPostcode()).isEqualTo(UPDATED_ZIP_OR_POSTCODE);
-        assertThat(testDomain.getStateProvinceCounty()).isEqualTo(UPDATED_STATE_PROVINCE_COUNTY);
-        assertThat(testDomain.getCountry()).isEqualTo(UPDATED_COUNTRY);
-        assertThat(testDomain.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
 
         // Validate the Domain in Elasticsearch
         Domain domainEs = domainSearchRepository.findOne(testDomain.getId());
@@ -464,15 +316,7 @@ public class DomainResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(domain.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].domainName").value(hasItem(DEFAULT_DOMAIN_NAME.toString())))
-            .andExpect(jsonPath("$.[*].organizationNumber").value(hasItem(DEFAULT_ORGANIZATION_NUMBER.toString())))
-            .andExpect(jsonPath("$.[*].addressLine1").value(hasItem(DEFAULT_ADDRESS_LINE_1.toString())))
-            .andExpect(jsonPath("$.[*].addressLine2").value(hasItem(DEFAULT_ADDRESS_LINE_2.toString())))
-            .andExpect(jsonPath("$.[*].addressLine3").value(hasItem(DEFAULT_ADDRESS_LINE_3.toString())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
-            .andExpect(jsonPath("$.[*].zipOrPostcode").value(hasItem(DEFAULT_ZIP_OR_POSTCODE.toString())))
-            .andExpect(jsonPath("$.[*].stateProvinceCounty").value(hasItem(DEFAULT_STATE_PROVINCE_COUNTY.toString())))
-            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
-            .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS.toString())));
+            .andExpect(jsonPath("$.[*].organizationNumber").value(hasItem(DEFAULT_ORGANIZATION_NUMBER.toString())));
     }
 
     @Test

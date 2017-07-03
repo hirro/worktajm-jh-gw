@@ -43,30 +43,6 @@ public class CustomerResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ADDRESS_LINE_1 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_LINE_1 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_LINE_2 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_LINE_2 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_LINE_3 = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_LINE_3 = "BBBBBBBBBB";
-
-    private static final String DEFAULT_CITY = "AAAAAAAAAA";
-    private static final String UPDATED_CITY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ZIP_OR_POSTCODE = "AAAAAAAAAA";
-    private static final String UPDATED_ZIP_OR_POSTCODE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_STATE_PROVINCE_COUNTY = "AAAAAAAAAA";
-    private static final String UPDATED_STATE_PROVINCE_COUNTY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_COUNTRY = "AAAAAAAAAA";
-    private static final String UPDATED_COUNTRY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ADDRESS_DETAILS = "AAAAAAAAAA";
-    private static final String UPDATED_ADDRESS_DETAILS = "BBBBBBBBBB";
-
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -110,15 +86,7 @@ public class CustomerResourceIntTest {
      */
     public static Customer createEntity(EntityManager em) {
         Customer customer = new Customer()
-            .name(DEFAULT_NAME)
-            .addressLine1(DEFAULT_ADDRESS_LINE_1)
-            .addressLine2(DEFAULT_ADDRESS_LINE_2)
-            .addressLine3(DEFAULT_ADDRESS_LINE_3)
-            .city(DEFAULT_CITY)
-            .zipOrPostcode(DEFAULT_ZIP_OR_POSTCODE)
-            .stateProvinceCounty(DEFAULT_STATE_PROVINCE_COUNTY)
-            .country(DEFAULT_COUNTRY)
-            .addressDetails(DEFAULT_ADDRESS_DETAILS);
+            .name(DEFAULT_NAME);
         return customer;
     }
 
@@ -145,14 +113,6 @@ public class CustomerResourceIntTest {
         assertThat(customerList).hasSize(databaseSizeBeforeCreate + 1);
         Customer testCustomer = customerList.get(customerList.size() - 1);
         assertThat(testCustomer.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testCustomer.getAddressLine1()).isEqualTo(DEFAULT_ADDRESS_LINE_1);
-        assertThat(testCustomer.getAddressLine2()).isEqualTo(DEFAULT_ADDRESS_LINE_2);
-        assertThat(testCustomer.getAddressLine3()).isEqualTo(DEFAULT_ADDRESS_LINE_3);
-        assertThat(testCustomer.getCity()).isEqualTo(DEFAULT_CITY);
-        assertThat(testCustomer.getZipOrPostcode()).isEqualTo(DEFAULT_ZIP_OR_POSTCODE);
-        assertThat(testCustomer.getStateProvinceCounty()).isEqualTo(DEFAULT_STATE_PROVINCE_COUNTY);
-        assertThat(testCustomer.getCountry()).isEqualTo(DEFAULT_COUNTRY);
-        assertThat(testCustomer.getAddressDetails()).isEqualTo(DEFAULT_ADDRESS_DETAILS);
 
         // Validate the Customer in Elasticsearch
         Customer customerEs = customerSearchRepository.findOne(testCustomer.getId());
@@ -200,82 +160,6 @@ public class CustomerResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAddressLine1IsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setAddressLine1(null);
-
-        // Create the Customer, which fails.
-        CustomerDTO customerDTO = customerMapper.toDto(customer);
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCityIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setCity(null);
-
-        // Create the Customer, which fails.
-        CustomerDTO customerDTO = customerMapper.toDto(customer);
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkZipOrPostcodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setZipOrPostcode(null);
-
-        // Create the Customer, which fails.
-        CustomerDTO customerDTO = customerMapper.toDto(customer);
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCountryIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setCountry(null);
-
-        // Create the Customer, which fails.
-        CustomerDTO customerDTO = customerMapper.toDto(customer);
-
-        restCustomerMockMvc.perform(post("/api/customers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllCustomers() throws Exception {
         // Initialize the database
         customerRepository.saveAndFlush(customer);
@@ -285,15 +169,7 @@ public class CustomerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].addressLine1").value(hasItem(DEFAULT_ADDRESS_LINE_1.toString())))
-            .andExpect(jsonPath("$.[*].addressLine2").value(hasItem(DEFAULT_ADDRESS_LINE_2.toString())))
-            .andExpect(jsonPath("$.[*].addressLine3").value(hasItem(DEFAULT_ADDRESS_LINE_3.toString())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
-            .andExpect(jsonPath("$.[*].zipOrPostcode").value(hasItem(DEFAULT_ZIP_OR_POSTCODE.toString())))
-            .andExpect(jsonPath("$.[*].stateProvinceCounty").value(hasItem(DEFAULT_STATE_PROVINCE_COUNTY.toString())))
-            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
-            .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test
@@ -307,15 +183,7 @@ public class CustomerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.addressLine1").value(DEFAULT_ADDRESS_LINE_1.toString()))
-            .andExpect(jsonPath("$.addressLine2").value(DEFAULT_ADDRESS_LINE_2.toString()))
-            .andExpect(jsonPath("$.addressLine3").value(DEFAULT_ADDRESS_LINE_3.toString()))
-            .andExpect(jsonPath("$.city").value(DEFAULT_CITY.toString()))
-            .andExpect(jsonPath("$.zipOrPostcode").value(DEFAULT_ZIP_OR_POSTCODE.toString()))
-            .andExpect(jsonPath("$.stateProvinceCounty").value(DEFAULT_STATE_PROVINCE_COUNTY.toString()))
-            .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY.toString()))
-            .andExpect(jsonPath("$.addressDetails").value(DEFAULT_ADDRESS_DETAILS.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
 
     @Test
@@ -337,15 +205,7 @@ public class CustomerResourceIntTest {
         // Update the customer
         Customer updatedCustomer = customerRepository.findOne(customer.getId());
         updatedCustomer
-            .name(UPDATED_NAME)
-            .addressLine1(UPDATED_ADDRESS_LINE_1)
-            .addressLine2(UPDATED_ADDRESS_LINE_2)
-            .addressLine3(UPDATED_ADDRESS_LINE_3)
-            .city(UPDATED_CITY)
-            .zipOrPostcode(UPDATED_ZIP_OR_POSTCODE)
-            .stateProvinceCounty(UPDATED_STATE_PROVINCE_COUNTY)
-            .country(UPDATED_COUNTRY)
-            .addressDetails(UPDATED_ADDRESS_DETAILS);
+            .name(UPDATED_NAME);
         CustomerDTO customerDTO = customerMapper.toDto(updatedCustomer);
 
         restCustomerMockMvc.perform(put("/api/customers")
@@ -358,14 +218,6 @@ public class CustomerResourceIntTest {
         assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
         Customer testCustomer = customerList.get(customerList.size() - 1);
         assertThat(testCustomer.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testCustomer.getAddressLine1()).isEqualTo(UPDATED_ADDRESS_LINE_1);
-        assertThat(testCustomer.getAddressLine2()).isEqualTo(UPDATED_ADDRESS_LINE_2);
-        assertThat(testCustomer.getAddressLine3()).isEqualTo(UPDATED_ADDRESS_LINE_3);
-        assertThat(testCustomer.getCity()).isEqualTo(UPDATED_CITY);
-        assertThat(testCustomer.getZipOrPostcode()).isEqualTo(UPDATED_ZIP_OR_POSTCODE);
-        assertThat(testCustomer.getStateProvinceCounty()).isEqualTo(UPDATED_STATE_PROVINCE_COUNTY);
-        assertThat(testCustomer.getCountry()).isEqualTo(UPDATED_COUNTRY);
-        assertThat(testCustomer.getAddressDetails()).isEqualTo(UPDATED_ADDRESS_DETAILS);
 
         // Validate the Customer in Elasticsearch
         Customer customerEs = customerSearchRepository.findOne(testCustomer.getId());
@@ -425,15 +277,7 @@ public class CustomerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].addressLine1").value(hasItem(DEFAULT_ADDRESS_LINE_1.toString())))
-            .andExpect(jsonPath("$.[*].addressLine2").value(hasItem(DEFAULT_ADDRESS_LINE_2.toString())))
-            .andExpect(jsonPath("$.[*].addressLine3").value(hasItem(DEFAULT_ADDRESS_LINE_3.toString())))
-            .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
-            .andExpect(jsonPath("$.[*].zipOrPostcode").value(hasItem(DEFAULT_ZIP_OR_POSTCODE.toString())))
-            .andExpect(jsonPath("$.[*].stateProvinceCounty").value(hasItem(DEFAULT_STATE_PROVINCE_COUNTY.toString())))
-            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
-            .andExpect(jsonPath("$.[*].addressDetails").value(hasItem(DEFAULT_ADDRESS_DETAILS.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test

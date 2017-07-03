@@ -8,9 +8,13 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Domain and its DTO DomainDTO.
  */
-@Mapper(componentModel = "spring", uses = {UserMapper.class, })
+@Mapper(componentModel = "spring", uses = {AddressMapper.class, UserMapper.class, })
 public interface DomainMapper extends EntityMapper <DomainDTO, Domain> {
-    
+
+    @Mapping(source = "address.id", target = "addressId")
+    DomainDTO toDto(Domain domain); 
+
+    @Mapping(source = "addressId", target = "address")
     @Mapping(target = "customers", ignore = true)
     Domain toEntity(DomainDTO domainDTO); 
     default Domain fromId(Long id) {

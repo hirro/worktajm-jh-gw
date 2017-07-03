@@ -40,33 +40,9 @@ public class Domain implements Serializable {
     @Column(name = "organization_number")
     private String organizationNumber;
 
-    @NotNull
-    @Column(name = "address_line_1", nullable = false)
-    private String addressLine1;
-
-    @Column(name = "address_line_2")
-    private String addressLine2;
-
-    @Column(name = "address_line_3")
-    private String addressLine3;
-
-    @NotNull
-    @Column(name = "city", nullable = false)
-    private String city;
-
-    @NotNull
-    @Column(name = "zip_or_postcode", nullable = false)
-    private String zipOrPostcode;
-
-    @Column(name = "state_province_county")
-    private String stateProvinceCounty;
-
-    @NotNull
-    @Column(name = "country", nullable = false)
-    private String country;
-
-    @Column(name = "address_details")
-    private String addressDetails;
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Address address;
 
     @OneToMany(mappedBy = "domain")
     @JsonIgnore
@@ -127,108 +103,17 @@ public class Domain implements Serializable {
         this.organizationNumber = organizationNumber;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
+    public Address getAddress() {
+        return address;
     }
 
-    public Domain addressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
+    public Domain address(Address address) {
+        this.address = address;
         return this;
     }
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
-
-    public String getAddressLine2() {
-        return addressLine2;
-    }
-
-    public Domain addressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
-        return this;
-    }
-
-    public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
-    }
-
-    public String getAddressLine3() {
-        return addressLine3;
-    }
-
-    public Domain addressLine3(String addressLine3) {
-        this.addressLine3 = addressLine3;
-        return this;
-    }
-
-    public void setAddressLine3(String addressLine3) {
-        this.addressLine3 = addressLine3;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public Domain city(String city) {
-        this.city = city;
-        return this;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getZipOrPostcode() {
-        return zipOrPostcode;
-    }
-
-    public Domain zipOrPostcode(String zipOrPostcode) {
-        this.zipOrPostcode = zipOrPostcode;
-        return this;
-    }
-
-    public void setZipOrPostcode(String zipOrPostcode) {
-        this.zipOrPostcode = zipOrPostcode;
-    }
-
-    public String getStateProvinceCounty() {
-        return stateProvinceCounty;
-    }
-
-    public Domain stateProvinceCounty(String stateProvinceCounty) {
-        this.stateProvinceCounty = stateProvinceCounty;
-        return this;
-    }
-
-    public void setStateProvinceCounty(String stateProvinceCounty) {
-        this.stateProvinceCounty = stateProvinceCounty;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public Domain country(String country) {
-        this.country = country;
-        return this;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getAddressDetails() {
-        return addressDetails;
-    }
-
-    public Domain addressDetails(String addressDetails) {
-        this.addressDetails = addressDetails;
-        return this;
-    }
-
-    public void setAddressDetails(String addressDetails) {
-        this.addressDetails = addressDetails;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Set<Customer> getCustomers() {
@@ -306,14 +191,6 @@ public class Domain implements Serializable {
             ", name='" + getName() + "'" +
             ", domainName='" + getDomainName() + "'" +
             ", organizationNumber='" + getOrganizationNumber() + "'" +
-            ", addressLine1='" + getAddressLine1() + "'" +
-            ", addressLine2='" + getAddressLine2() + "'" +
-            ", addressLine3='" + getAddressLine3() + "'" +
-            ", city='" + getCity() + "'" +
-            ", zipOrPostcode='" + getZipOrPostcode() + "'" +
-            ", stateProvinceCounty='" + getStateProvinceCounty() + "'" +
-            ", country='" + getCountry() + "'" +
-            ", addressDetails='" + getAddressDetails() + "'" +
             "}";
     }
 }

@@ -1,0 +1,89 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAddressLabel" jhiTranslate="worktajmApp.address.home.createOrEditLabel">Create or edit a Address</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!address.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="address.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.addressLine1" for="field_addressLine1">Address Line 1</label>
+            <input type="text" class="form-control" name="addressLine1" id="field_addressLine1"
+                [(ngModel)]="address.addressLine1" required />
+            <div [hidden]="!(editForm.controls.addressLine1?.dirty && editForm.controls.addressLine1?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.addressLine1?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.addressLine2" for="field_addressLine2">Address Line 2</label>
+            <input type="text" class="form-control" name="addressLine2" id="field_addressLine2"
+                [(ngModel)]="address.addressLine2"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.addressLine3" for="field_addressLine3">Address Line 3</label>
+            <input type="text" class="form-control" name="addressLine3" id="field_addressLine3"
+                [(ngModel)]="address.addressLine3"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.city" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                [(ngModel)]="address.city" required />
+            <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.zipOrPostcode" for="field_zipOrPostcode">Zip Or Postcode</label>
+            <input type="text" class="form-control" name="zipOrPostcode" id="field_zipOrPostcode"
+                [(ngModel)]="address.zipOrPostcode" required />
+            <div [hidden]="!(editForm.controls.zipOrPostcode?.dirty && editForm.controls.zipOrPostcode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.zipOrPostcode?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.stateProvinceCounty" for="field_stateProvinceCounty">State Province County</label>
+            <input type="text" class="form-control" name="stateProvinceCounty" id="field_stateProvinceCounty"
+                [(ngModel)]="address.stateProvinceCounty"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.country" for="field_country">Country</label>
+            <input type="text" class="form-control" name="country" id="field_country"
+                [(ngModel)]="address.country" required />
+            <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="worktajmApp.address.addressDetails" for="field_addressDetails">Address Details</label>
+            <input type="text" class="form-control" name="addressDetails" id="field_addressDetails"
+                [(ngModel)]="address.addressDetails"  />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

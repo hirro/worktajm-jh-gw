@@ -33,39 +33,9 @@
             <column name="organization_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="address_line_1" type="varchar(255)">
-                <constraints nullable="false" />
+            <column name="address_id" type="bigint">
+                <constraints unique="true" nullable="true" />
             </column>
-
-            <column name="address_line_2" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="address_line_3" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="city" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="zip_or_postcode" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="state_province_county" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="country" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="address_details" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

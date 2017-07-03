@@ -1,0 +1,29 @@
+{
+    "worktajmApp": {
+        "address" : {
+            "home": {
+                "title": "Addresses",
+                "createLabel": "Skapa en ny Address",
+                "createOrEditLabel": "Skapa eller ändra en Address",
+                "search": "Sök efter Address"
+            },
+            "created": "En ny Address är skapad med id {{ param }}",
+            "updated": "En Address är uppdaterad med id  {{ param }}",
+            "deleted": "En Address är borttagen med id  {{ param }}",
+            "delete": {
+                "question": "Är du säker på att du vill ta bort Address {{ id }}?"
+            },
+            "detail": {
+                "title": "Address"
+            },
+            "addressLine1": "Address Line 1",
+            "addressLine2": "Address Line 2",
+            "addressLine3": "Address Line 3",
+            "city": "City",
+            "zipOrPostcode": "Zip Or Postcode",
+            "stateProvinceCounty": "State Province County",
+            "country": "Country",
+            "addressDetails": "Address Details"
+        }
+    }
+}

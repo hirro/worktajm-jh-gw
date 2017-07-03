@@ -68,7 +68,7 @@ class DomainGatlingTest extends Simulation {
             .exec(http("Create new domain")
             .post("/api/domains")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "domainName":"SAMPLE_TEXT", "organizationNumber":"SAMPLE_TEXT", "addressLine1":"SAMPLE_TEXT", "addressLine2":"SAMPLE_TEXT", "addressLine3":"SAMPLE_TEXT", "city":"SAMPLE_TEXT", "zipOrPostcode":"SAMPLE_TEXT", "stateProvinceCounty":"SAMPLE_TEXT", "country":"SAMPLE_TEXT", "addressDetails":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "domainName":"SAMPLE_TEXT", "organizationNumber":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_domain_url"))).exitHereIfFailed
             .pause(10)

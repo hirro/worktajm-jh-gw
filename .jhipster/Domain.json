@@ -2,6 +2,14 @@
     "fluentMethods": true,
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "relationshipName": "address",
+            "otherEntityName": "address",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "domain"
+        },
+        {
             "relationshipType": "one-to-many",
             "relationshipName": "customers",
             "otherEntityName": "customer",
@@ -33,50 +41,6 @@
         },
         {
             "fieldName": "organizationNumber",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "addressLine1",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "addressLine2",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "addressLine3",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "city",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "zipOrPostcode",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "stateProvinceCounty",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "country",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "addressDetails",
             "fieldType": "String"
         }
     ],

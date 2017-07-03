@@ -16,37 +16,11 @@
         <dd>
             <span>{{domain.organizationNumber}}</span>
         </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.addressLine1">Address Line 1</span></dt>
+        <dt><span jhiTranslate="worktajmApp.domain.address">Address</span></dt>
         <dd>
-            <span>{{domain.addressLine1}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.addressLine2">Address Line 2</span></dt>
-        <dd>
-            <span>{{domain.addressLine2}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.addressLine3">Address Line 3</span></dt>
-        <dd>
-            <span>{{domain.addressLine3}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.city">City</span></dt>
-        <dd>
-            <span>{{domain.city}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.zipOrPostcode">Zip Or Postcode</span></dt>
-        <dd>
-            <span>{{domain.zipOrPostcode}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.stateProvinceCounty">State Province County</span></dt>
-        <dd>
-            <span>{{domain.stateProvinceCounty}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.country">Country</span></dt>
-        <dd>
-            <span>{{domain.country}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.domain.addressDetails">Address Details</span></dt>
-        <dd>
-            <span>{{domain.addressDetails}}</span>
+            <div *ngIf="domain.addressId">
+                <a [routerLink]="['/address', domain.addressId]">{{domain.addressId}}</a>
+            </div>
         </dd>
         <dt><span jhiTranslate="worktajmApp.domain.members">Members</span></dt>
         <dd>

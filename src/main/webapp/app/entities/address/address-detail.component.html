@@ -1,0 +1,53 @@
+
+<div *ngIf="address">
+    <h2><span jhiTranslate="worktajmApp.address.detail.title">Address</span> {{address.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="worktajmApp.address.addressLine1">Address Line 1</span></dt>
+        <dd>
+            <span>{{address.addressLine1}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.addressLine2">Address Line 2</span></dt>
+        <dd>
+            <span>{{address.addressLine2}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.addressLine3">Address Line 3</span></dt>
+        <dd>
+            <span>{{address.addressLine3}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.city">City</span></dt>
+        <dd>
+            <span>{{address.city}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.zipOrPostcode">Zip Or Postcode</span></dt>
+        <dd>
+            <span>{{address.zipOrPostcode}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.stateProvinceCounty">State Province County</span></dt>
+        <dd>
+            <span>{{address.stateProvinceCounty}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.country">Country</span></dt>
+        <dd>
+            <span>{{address.country}}</span>
+        </dd>
+        <dt><span jhiTranslate="worktajmApp.address.addressDetails">Address Details</span></dt>
+        <dd>
+            <span>{{address.addressDetails}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'address/'+ address.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

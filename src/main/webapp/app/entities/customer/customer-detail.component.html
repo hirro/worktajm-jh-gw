@@ -8,37 +8,11 @@
         <dd>
             <span>{{customer.name}}</span>
         </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.addressLine1">Address Line 1</span></dt>
+        <dt><span jhiTranslate="worktajmApp.customer.address">Address</span></dt>
         <dd>
-            <span>{{customer.addressLine1}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.addressLine2">Address Line 2</span></dt>
-        <dd>
-            <span>{{customer.addressLine2}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.addressLine3">Address Line 3</span></dt>
-        <dd>
-            <span>{{customer.addressLine3}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.city">City</span></dt>
-        <dd>
-            <span>{{customer.city}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.zipOrPostcode">Zip Or Postcode</span></dt>
-        <dd>
-            <span>{{customer.zipOrPostcode}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.stateProvinceCounty">State Province County</span></dt>
-        <dd>
-            <span>{{customer.stateProvinceCounty}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.country">Country</span></dt>
-        <dd>
-            <span>{{customer.country}}</span>
-        </dd>
-        <dt><span jhiTranslate="worktajmApp.customer.addressDetails">Address Details</span></dt>
-        <dd>
-            <span>{{customer.addressDetails}}</span>
+            <div *ngIf="customer.addressId">
+                <a [routerLink]="['/address', customer.addressId]">{{customer.addressId}}</a>
+            </div>
         </dd>
         <dt><span jhiTranslate="worktajmApp.customer.domain">Domain</span></dt>
         <dd>

@@ -33,14 +33,7 @@
             <th jhiSortBy="name"><span jhiTranslate="worktajmApp.domain.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="domainName"><span jhiTranslate="worktajmApp.domain.domainName">Domain Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="organizationNumber"><span jhiTranslate="worktajmApp.domain.organizationNumber">Organization Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressLine1"><span jhiTranslate="worktajmApp.domain.addressLine1">Address Line 1</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressLine2"><span jhiTranslate="worktajmApp.domain.addressLine2">Address Line 2</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressLine3"><span jhiTranslate="worktajmApp.domain.addressLine3">Address Line 3</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="city"><span jhiTranslate="worktajmApp.domain.city">City</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="zipOrPostcode"><span jhiTranslate="worktajmApp.domain.zipOrPostcode">Zip Or Postcode</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="stateProvinceCounty"><span jhiTranslate="worktajmApp.domain.stateProvinceCounty">State Province County</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="country"><span jhiTranslate="worktajmApp.domain.country">Country</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressDetails"><span jhiTranslate="worktajmApp.domain.addressDetails">Address Details</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="addressId"><span jhiTranslate="worktajmApp.domain.address">Address</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -50,14 +43,11 @@
                 <td>{{domain.name}}</td>
                 <td>{{domain.domainName}}</td>
                 <td>{{domain.organizationNumber}}</td>
-                <td>{{domain.addressLine1}}</td>
-                <td>{{domain.addressLine2}}</td>
-                <td>{{domain.addressLine3}}</td>
-                <td>{{domain.city}}</td>
-                <td>{{domain.zipOrPostcode}}</td>
-                <td>{{domain.stateProvinceCounty}}</td>
-                <td>{{domain.country}}</td>
-                <td>{{domain.addressDetails}}</td>
+                <td>
+                    <div *ngIf="domain.addressId">
+                        <a [routerLink]="['../address', domain.addressId  ]" >{{domain.addressId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

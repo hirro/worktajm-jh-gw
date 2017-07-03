@@ -9,6 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Domain } from './domain.model';
 import { DomainPopupService } from './domain-popup.service';
 import { DomainService } from './domain.service';
+import { Address, AddressService } from '../address';
 import { User, UserService } from '../../shared';
 import { ResponseWrapper } from '../../shared';
 
@@ -22,12 +23,15 @@ export class DomainDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
+    addresses: Address[];
+
     users: User[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private domainService: DomainService,
+        private addressService: AddressService,
         private userService: UserService,
         private eventManager: JhiEventManager
     ) {
@@ -36,6 +40,19 @@ export class DomainDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.addressService
+            .query({filter: 'domain-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.domain.addressId) {
+                    this.addresses = res.json;
+                } else {
+                    this.addressService
+                        .find(this.domain.addressId)
+                        .subscribe((subRes: Address) => {
+                            this.addresses = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
         this.userService.query()
             .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
@@ -83,6 +100,10 @@ export class DomainDialogComponent implements OnInit {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    trackAddressById(index: number, item: Address) {
+        return item.id;
     }
 
     trackUserById(index: number, item: User) {

@@ -9,6 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Customer } from './customer.model';
 import { CustomerPopupService } from './customer-popup.service';
 import { CustomerService } from './customer.service';
+import { Address, AddressService } from '../address';
 import { Domain, DomainService } from '../domain';
 import { ResponseWrapper } from '../../shared';
 
@@ -22,12 +23,15 @@ export class CustomerDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
+    addresses: Address[];
+
     domains: Domain[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private customerService: CustomerService,
+        private addressService: AddressService,
         private domainService: DomainService,
         private eventManager: JhiEventManager
     ) {
@@ -36,6 +40,19 @@ export class CustomerDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.addressService
+            .query({filter: 'customer-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.customer.addressId) {
+                    this.addresses = res.json;
+                } else {
+                    this.addressService
+                        .find(this.customer.addressId)
+                        .subscribe((subRes: Address) => {
+                            this.addresses = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
         this.domainService.query()
             .subscribe((res: ResponseWrapper) => { this.domains = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
@@ -83,6 +100,10 @@ export class CustomerDialogComponent implements OnInit {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    trackAddressById(index: number, item: Address) {
+        return item.id;
     }
 
     trackDomainById(index: number, item: Domain) {

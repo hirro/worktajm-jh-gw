@@ -4,6 +4,7 @@ import { WorktajmProjectModule } from './project/project.module';
 import { WorktajmCustomerModule } from './customer/customer.module';
 import { WorktajmTimeEntryModule } from './time-entry/time-entry.module';
 import { WorktajmDomainModule } from './domain/domain.module';
+import { WorktajmAddressModule } from './address/address.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -12,6 +13,7 @@ import { WorktajmDomainModule } from './domain/domain.module';
         WorktajmCustomerModule,
         WorktajmTimeEntryModule,
         WorktajmDomainModule,
+        WorktajmAddressModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

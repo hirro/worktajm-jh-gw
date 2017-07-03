@@ -19,14 +19,7 @@
             "name": "Name",
             "domainName": "Domain Name",
             "organizationNumber": "Organization Number",
-            "addressLine1": "Address Line 1",
-            "addressLine2": "Address Line 2",
-            "addressLine3": "Address Line 3",
-            "city": "City",
-            "zipOrPostcode": "Zip Or Postcode",
-            "stateProvinceCounty": "State Province County",
-            "country": "Country",
-            "addressDetails": "Address Details",
+            "address": "Address",
             "customers": "Customers",
             "members": "Members"
         }

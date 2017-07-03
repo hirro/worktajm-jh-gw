@@ -31,14 +31,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="worktajmApp.customer.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressLine1"><span jhiTranslate="worktajmApp.customer.addressLine1">Address Line 1</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressLine2"><span jhiTranslate="worktajmApp.customer.addressLine2">Address Line 2</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressLine3"><span jhiTranslate="worktajmApp.customer.addressLine3">Address Line 3</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="city"><span jhiTranslate="worktajmApp.customer.city">City</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="zipOrPostcode"><span jhiTranslate="worktajmApp.customer.zipOrPostcode">Zip Or Postcode</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="stateProvinceCounty"><span jhiTranslate="worktajmApp.customer.stateProvinceCounty">State Province County</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="country"><span jhiTranslate="worktajmApp.customer.country">Country</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addressDetails"><span jhiTranslate="worktajmApp.customer.addressDetails">Address Details</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="addressId"><span jhiTranslate="worktajmApp.customer.address">Address</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="domainName"><span jhiTranslate="worktajmApp.customer.domain">Domain</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -47,14 +40,11 @@
             <tr *ngFor="let customer of customers ;trackBy: trackId">
                 <td><a [routerLink]="['../customer', customer.id ]">{{customer.id}}</a></td>
                 <td>{{customer.name}}</td>
-                <td>{{customer.addressLine1}}</td>
-                <td>{{customer.addressLine2}}</td>
-                <td>{{customer.addressLine3}}</td>
-                <td>{{customer.city}}</td>
-                <td>{{customer.zipOrPostcode}}</td>
-                <td>{{customer.stateProvinceCounty}}</td>
-                <td>{{customer.country}}</td>
-                <td>{{customer.addressDetails}}</td>
+                <td>
+                    <div *ngIf="customer.addressId">
+                        <a [routerLink]="['../address', customer.addressId  ]" >{{customer.addressId}}</a>
+                    </div>
+                </td>
                 <td>
                     <div *ngIf="customer.domainId">
                         <a [routerLink]="['../domain', customer.domainId  ]" >{{customer.domainName}}</a>
